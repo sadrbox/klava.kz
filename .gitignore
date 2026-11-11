@@ -1,0 +1,8 @@
+# Пароль панели статистики и собранные данные
+stats/config.php
+stats/data/*
+!stats/data/.htaccess
+.old
+
+# Локальный архив старых файлов
+.old/

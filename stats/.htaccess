@@ -1,0 +1,4 @@
+# Служебные файлы статистики по прямой ссылке не отдаются
+<FilesMatch "^(lib|config|config\.sample)\.php$">
+  Require all denied
+</FilesMatch>

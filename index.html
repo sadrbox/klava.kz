@@ -1,0 +1,3244 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+  <title>klava.kz</title>
+  <link rel="stylesheet"
+    id="hljs-dark"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-dark.min.css"
+    integrity="sha512-Xn1b0y/BrCD7usnEh6r9CcKxHXFVleVUjGDnfc95zDDwFUwtOz3lJC/XtJcuLRNyrMQJEEToFfwjC9Ue/aWY/g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer">
+  <link rel="stylesheet"
+    id="hljs-light"
+    href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css"
+    integrity="sha512-RDtnAhiPytLVV3AwzHkGVMVI4szjtSjxxyhDaH3gqdHPIw5qwQld1MVGuMu1EYoof+CaEccrO3zUVb13hQFU/A=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+    disabled>
+  <script>
+    // Тема применяется до отрисовки страницы, чтобы не мелькала тёмная
+    try {
+      if (JSON.parse(localStorage.getItem('klava:theme')) === 'light') {
+        document.documentElement.dataset.theme = 'light';
+        document.getElementById('hljs-dark').disabled = true;
+        document.getElementById('hljs-light').disabled = false;
+      }
+    } catch (e) {
+      // Хранилище недоступно — остаётся тёмная тема
+    }
+  </script>
+  <style>
+    /* Палитра: тёмная тема по умолчанию, светлая — data-theme="light" на <html> */
+    :root {
+      color-scheme: dark;
+      --bg: #0d1117;
+      --panel: #161b22;
+      --surface: #21262d;
+      --border: #30363d;
+      --border-strong: #484f58;
+      --text: #c9d1d9;
+      --muted: #8b949e;
+      --faint: #6e7681;
+      --accent: #58a6ff;
+      --accent-hover: #79c0ff;
+      --accent-soft: rgba(88, 166, 255, 0.15);
+      --ok: #7ee787;
+      --danger: #ff7b72;
+      --on-danger: #ffffff;
+      --btn: #238636;
+      --btn-hover: #2ea043;
+      --overlay: rgba(13, 17, 23, 0.75);
+      --backdrop: rgba(1, 4, 9, 0.7);
+      --shadow: rgba(0, 0, 0, 0.5);
+      --active-bg: #1c2330;
+      --on-target: #0d1117;
+      --ring-active: #f0f6fc;
+      --f-pinky: #f778ba;
+      --f-ring: #a371f7;
+      --f-middle: #58a6ff;
+      --f-index-l: #3fb950;
+      --f-index-r: #d29922;
+      --f-thumb: #8b949e;
+    }
+
+    :root[data-theme="light"] {
+      color-scheme: light;
+      --bg: #f6f8fa;
+      --panel: #ffffff;
+      --surface: #eef1f4;
+      --border: #d0d7de;
+      --border-strong: #afb8c1;
+      --text: #1f2328;
+      --muted: #59636e;
+      --faint: #818b98;
+      --accent: #0969da;
+      --accent-hover: #0550ae;
+      --accent-soft: rgba(9, 105, 218, 0.12);
+      --ok: #1a7f37;
+      --danger: #cf222e;
+      --on-danger: #ffffff;
+      --btn: #1f883d;
+      --btn-hover: #1a7f37;
+      --overlay: rgba(255, 255, 255, 0.8);
+      --backdrop: rgba(31, 35, 40, 0.45);
+      --shadow: rgba(31, 35, 40, 0.2);
+      --active-bg: #ddf4ff;
+      --on-target: #ffffff;
+      --ring-active: #ffffff;
+      --f-pinky: #bf3989;
+      --f-ring: #8250df;
+      --f-middle: #0969da;
+      --f-index-l: #1a7f37;
+      --f-index-r: #9a6700;
+      --f-thumb: #6e7781;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    [hidden] {
+      display: none !important;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      font-size: 13px;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      height: 100dvh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    #app {
+      width: 90vw;
+      max-width: 1600px;
+      height: 88vh;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    button {
+      font: inherit;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    button:focus-visible,
+    select:focus-visible,
+    input:focus-visible,
+    textarea:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    .btn-primary {
+      background: var(--btn);
+      color: #ffffff;
+      padding: 8px 20px;
+      font-weight: 500;
+    }
+
+    .btn-primary:hover {
+      background: var(--btn-hover);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .btn-secondary {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 7px 16px;
+    }
+
+    .btn-secondary:hover {
+      background: var(--border);
+    }
+
+    .link-btn {
+      background: none;
+      color: var(--accent);
+      padding: 4px 6px;
+      font-weight: 500;
+    }
+
+    .link-btn:hover {
+      color: var(--accent-hover);
+    }
+
+    .icon-btn {
+      background: none;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1;
+      padding: 4px 8px;
+    }
+
+    .icon-btn:hover {
+      color: var(--text);
+    }
+
+    #header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 0 4px;
+      font-size: 14px;
+    }
+
+    #source {
+      max-width: 280px;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 8px;
+      font: inherit;
+      font-size: 13px;
+      cursor: pointer;
+    }
+
+    #theme-toggle {
+      font-size: 16px;
+      line-height: 1;
+    }
+
+    #source-status {
+      max-width: 320px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    #refresh {
+      font-size: 16px;
+    }
+
+    #stats {
+      margin-left: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 4px 20px;
+      font-variant-numeric: tabular-nums;
+      color: var(--muted);
+    }
+
+    #stats b {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    /* Текст и клавиатура — в центральной колонке одной ширины, пояснения — узкой колонкой справа.
+       Левая колонка той же ширины держит текст по центру страницы */
+    #main-layout {
+      flex: 1;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: minmax(240px, 1fr) minmax(0, 860px) minmax(240px, 1fr);
+      grid-template-rows: minmax(0, 1fr) auto;
+      grid-template-areas:
+        ". text side"
+        ". keyboard side";
+      gap: 16px;
+    }
+
+    #left-panel {
+      grid-area: text;
+    }
+
+    #right-panel {
+      grid-area: side;
+      width: 100%;
+      max-width: 340px;
+      padding: 12px;
+    }
+
+    #left-panel,
+    #right-panel {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      background: var(--panel);
+      border-radius: 8px;
+      min-height: 0;
+      min-width: 0;
+    }
+
+    #left-panel {
+      padding: 16px;
+    }
+
+    #app.explanations-off #right-panel {
+      display: none;
+    }
+
+    #text-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      min-height: 0;
+    }
+
+    #text {
+      flex: 1;
+      padding: 16px 18px;
+      background: var(--bg);
+      font-family: 'Consolas', monospace;
+      font-size: 16px;
+      line-height: 1.9;
+      overflow-y: auto;
+      border-radius: 6px;
+      position: relative;
+      outline: none;
+      cursor: text;
+    }
+
+    #text:focus {
+      box-shadow: 0 0 0 2px var(--accent);
+    }
+
+    #text .line {
+      min-height: 1.9em;
+      position: relative;
+    }
+
+    /* Следующие строки приглушены, чтобы взгляд держался на активной */
+    #text .line+.line {
+      opacity: 0.45;
+    }
+
+    /* Символы слова держатся вместе: перенос идёт по пробелам, а не посреди слова */
+    #text .word {
+      display: inline-block;
+      max-width: 100%;
+    }
+
+    /* Бокс символа по высоте глифа: курсор и подсветка ошибки прилегают к букве,
+       а межстрочный интервал по-прежнему задаёт line-height строки */
+    #text .char {
+      position: relative;
+      display: inline-block;
+      white-space: pre;
+      line-height: 1.3;
+      border-radius: 2px;
+    }
+
+    #text .char.checked {
+      color: var(--ok);
+    }
+
+    #text .char.current {
+      background: var(--accent-soft);
+    }
+
+    /* Курсор — вертикальная черта между набранным и следующим символом */
+    #text .char.current::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: -1px;
+      width: 2px;
+      border-radius: 1px;
+      background: var(--accent);
+      animation: blink 1s step-end infinite;
+    }
+
+    #text .char.current.error {
+      background: var(--danger);
+      color: var(--on-danger);
+    }
+
+    #text .char.current.error::before {
+      background: var(--danger);
+      animation: none;
+    }
+
+    @keyframes blink {
+
+      0%,
+      49% {
+        opacity: 1;
+      }
+
+      50%,
+      100% {
+        opacity: 0;
+      }
+    }
+
+    #pause {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      text-align: center;
+      background: var(--overlay);
+      border-radius: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    #text-container.paused #pause {
+      display: flex;
+    }
+
+    #explanation-panel {
+      flex: 1;
+      background: var(--bg);
+      padding: 12px 14px;
+      border-radius: 6px;
+      overflow-y: auto;
+    }
+
+    .panel-title {
+      font-size: 13px;
+      color: var(--accent);
+      margin-bottom: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
+
+    #explanation-content {
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 13px;
+    }
+
+    .word-item {
+      margin-bottom: 12px;
+      padding: 10px;
+      background: var(--panel);
+      border-left: 2px solid var(--border);
+      border-radius: 0 4px 4px 0;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .word-item.active {
+      border-left-color: var(--accent);
+      background: var(--active-bg);
+    }
+
+    .word-title {
+      color: var(--ok);
+      font-family: 'Consolas', monospace;
+      font-weight: 500;
+      margin-bottom: 4px;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .word-description {
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .no-explanations {
+      color: var(--faint);
+      font-style: italic;
+      padding: 12px 0;
+    }
+
+    #hints {
+      color: var(--faint);
+      font-size: 12px;
+      text-align: center;
+    }
+
+    kbd {
+      font-family: 'Consolas', monospace;
+      font-size: 11px;
+      padding: 1px 5px;
+      border: 1px solid var(--border);
+      border-bottom-width: 2px;
+      border-radius: 4px;
+      background: var(--panel);
+      color: var(--text);
+    }
+
+    /* ---------- Экранная клавиатура ---------- */
+
+    #keyboard-panel {
+      grid-area: keyboard;
+      container-type: inline-size;
+      /* --u — ширина одной клавиши: клавиатура (15 клавиш) вписывается в ширину своей колонки */
+      --u: clamp(20px, min(calc(100cqw / 15), 5.2vh), 46px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      background: var(--panel);
+      border-radius: 8px;
+      padding: 12px 16px;
+    }
+
+    @supports not (width: 1cqw) {
+      #keyboard-panel {
+        --u: clamp(20px, min(calc((100vw - 64px) / 15), 5.2vh), 46px);
+      }
+    }
+
+    #app.keyboard-off #keyboard-panel {
+      display: none;
+    }
+
+    /* Цвета пальцев: одноимённые пальцы обеих рук одного цвета, указательные — разных */
+    [data-finger="lp"],
+    [data-finger="rp"] {
+      --fc: var(--f-pinky);
+    }
+
+    [data-finger="lr"],
+    [data-finger="rr"] {
+      --fc: var(--f-ring);
+    }
+
+    [data-finger="lm"],
+    [data-finger="rm"] {
+      --fc: var(--f-middle);
+    }
+
+    [data-finger="li"] {
+      --fc: var(--f-index-l);
+    }
+
+    [data-finger="ri"] {
+      --fc: var(--f-index-r);
+    }
+
+    [data-finger="th"] {
+      --fc: var(--f-thumb);
+    }
+
+    .keyboard {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    /* Кисти рук поверх клавиатуры; снизу место под ладони */
+    .keyboard.hands {
+      padding-bottom: calc(var(--u) * 0.35);
+    }
+
+    .kb-hands {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+      pointer-events: none;
+      display: none;
+    }
+
+    .keyboard.hands .kb-hands {
+      display: block;
+    }
+
+    .kb-hands path[data-finger] {
+      fill: var(--fc);
+    }
+
+    .kb-palm {
+      fill: var(--muted);
+    }
+
+    .kb-hand-fill {
+      opacity: 0.22;
+    }
+
+    .kb-nail {
+      fill: var(--text);
+      fill-opacity: 0.12;
+      stroke: var(--muted);
+      stroke-opacity: 0.8;
+      stroke-width: 1;
+    }
+
+    .kb-crease {
+      fill: none;
+      stroke: var(--muted);
+      stroke-opacity: 0.55;
+      stroke-width: 1;
+      stroke-linecap: round;
+    }
+
+    /* Палец, которым нужно нажать следующую клавишу */
+    .kb-hand-active path {
+      opacity: 0;
+      transition: opacity 0.12s;
+    }
+
+    .kb-hand-active path.on {
+      opacity: 0.45;
+    }
+
+    .kb-row {
+      display: flex;
+    }
+
+    .kb-key {
+      position: relative;
+      width: calc(var(--u) * var(--w, 1));
+      height: var(--u);
+      padding: 2px;
+    }
+
+    .kb-cap {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      line-height: 1.05;
+      border-radius: 5px;
+      background: var(--cap-bg, var(--surface));
+      border: 1px solid var(--cap-border, var(--border));
+      color: var(--faint);
+      font-size: calc(var(--u) * 0.26);
+      transition: background 0.12s, border-color 0.12s, box-shadow 0.12s;
+    }
+
+    .kb-base {
+      color: var(--text);
+      font-size: calc(var(--u) * 0.36);
+    }
+
+    .kb-shift {
+      color: var(--faint);
+      font-size: calc(var(--u) * 0.26);
+    }
+
+    /* Регистр как на самом деле: Shift или CapsLock — заглавные буквы,
+       с зажатым Shift на цифрах и знаках крупнее верхний символ */
+    .keyboard.upper .kb-letter {
+      text-transform: uppercase;
+    }
+
+    .keyboard.shift-on .kb-shift {
+      color: var(--text);
+      font-size: calc(var(--u) * 0.36);
+    }
+
+    .keyboard.shift-on .kb-base:not(.kb-letter) {
+      font-size: calc(var(--u) * 0.26);
+      opacity: 0.55;
+    }
+
+    /* Физически нажатые клавиши */
+    .kb-key.pressed>.kb-cap {
+      border-color: var(--accent);
+      box-shadow: inset 0 0 0 1px var(--accent);
+      transform: translateY(1px);
+    }
+
+    /* Индикатор CapsLock */
+    .kb-key[data-code="CapsLock"]>.kb-cap {
+      position: relative;
+    }
+
+    .keyboard.caps-on .kb-key[data-code="CapsLock"]>.kb-cap::after {
+      content: '';
+      position: absolute;
+      top: 16%;
+      right: 12%;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+      box-shadow: 0 0 6px var(--ok);
+    }
+
+    /* Основной (горизонтальный) ряд выделен всегда; на А/О (F/J) — насечки */
+    .kb-key.home {
+      --cap-border: var(--border-strong);
+    }
+
+    .kb-key.bump .kb-cap {
+      position: relative;
+    }
+
+    .kb-key.bump .kb-cap::after {
+      content: '';
+      position: absolute;
+      bottom: 14%;
+      left: 50%;
+      width: 26%;
+      height: 2px;
+      border-radius: 1px;
+      transform: translateX(-50%);
+      background: currentColor;
+      opacity: 0.6;
+    }
+
+    /* Зоны пальцев: вертикальные столбцы клавиш окрашены по пальцам, основной ряд ярче */
+    .keyboard.zones .kb-key[data-finger] {
+      --cap-bg: color-mix(in srgb, var(--fc) 14%, var(--panel));
+      --cap-border: color-mix(in srgb, var(--fc) 35%, var(--border));
+    }
+
+    .keyboard.zones .kb-key.home[data-finger] {
+      --cap-bg: color-mix(in srgb, var(--fc) 30%, var(--panel));
+      --cap-border: color-mix(in srgb, var(--fc) 60%, var(--border));
+    }
+
+    /* Клавиша, которую нужно нажать следующей (и Shift к ней) */
+    .kb-key.target>.kb-cap {
+      background: var(--fc, var(--accent));
+      border-color: var(--fc, var(--accent));
+      box-shadow: 0 0 12px color-mix(in srgb, var(--fc, var(--accent)) 55%, transparent);
+      color: var(--on-target);
+    }
+
+    .kb-key.target>.kb-cap .kb-base,
+    .kb-key.target>.kb-cap .kb-shift {
+      color: var(--on-target);
+    }
+
+    .kb-key.kb-warn>.kb-cap {
+      color: var(--danger);
+      border-color: var(--danger);
+      font-weight: 600;
+    }
+
+    /* Подсказку о раскладке не загораживаем метками больших пальцев */
+    .kb-key.kb-warn .kb-finger {
+      display: none;
+    }
+
+    /* Метки пальцев над клавишами: по умолчанию на основной позиции,
+       нужный палец переходит на клавишу следующего символа */
+    .kb-finger {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: calc(var(--u) * 0.62);
+      height: calc(var(--u) * 0.74);
+      transform: translate(-50%, -50%);
+      border: 2px solid var(--fc);
+      border-radius: 50% 50% 42% 42% / 60% 60% 40% 40%;
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .kb-finger.thumb-l {
+      left: 38%;
+    }
+
+    .kb-finger.thumb-r {
+      left: 62%;
+    }
+
+    .kb-finger.active {
+      border-width: 3px;
+      opacity: 1;
+      background: color-mix(in srgb, var(--fc) 22%, transparent);
+      animation: finger-in 0.15s ease-out;
+    }
+
+    .kb-key.target .kb-finger.active {
+      border-color: var(--ring-active);
+    }
+
+    .keyboard:not(.fingers) .kb-finger {
+      display: none;
+    }
+
+    @keyframes finger-in {
+      from {
+        transform: translate(-50%, -50%) scale(1.25);
+        opacity: 0.4;
+      }
+    }
+
+    .kb-footer {
+      width: calc(var(--u) * 15);
+      max-width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px 16px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .kb-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+    }
+
+    .kb-legend span::before {
+      content: '';
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      margin-right: 5px;
+      border-radius: 3px;
+      background: var(--fc);
+      vertical-align: -1px;
+    }
+
+    #keyboard-panel:has(.keyboard:not(.zones):not(.fingers):not(.hands)) .kb-legend {
+      display: none;
+    }
+
+    .kb-options {
+      display: flex;
+      gap: 14px;
+      margin-left: auto;
+    }
+
+    .kb-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+    }
+
+    .dialog {
+      margin: auto;
+      width: 90vw;
+      max-width: 640px;
+      max-height: 90vh;
+      background: var(--panel);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      box-shadow: 0 16px 32px var(--shadow);
+      overflow: hidden;
+    }
+
+    .dialog[open] {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .dialog::backdrop {
+      background: var(--backdrop);
+    }
+
+    .modal-body {
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overflow-y: auto;
+      min-height: 0;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h2 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #dict_data {
+      width: 100%;
+      height: 260px;
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      border-radius: 6px;
+      padding: 12px;
+      font-family: 'Consolas', monospace;
+      font-size: 13px;
+      resize: vertical;
+    }
+
+    .modal-options {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .modal-options label,
+    .modal-options .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-options select,
+    .modal-options input[type="text"],
+    .modal-options input[type="file"] {
+      background: var(--bg);
+      color: var(--text);
+      border: none;
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .modal-options input[type="file"]::file-selector-button {
+      background: var(--surface);
+      color: var(--text);
+      border: 1px solid var(--border);
+      padding: 5px 12px;
+      margin-right: 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .modal-options fieldset {
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 10px 12px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .modal-options legend {
+      padding: 0 6px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      cursor: pointer;
+      accent-color: var(--accent);
+    }
+
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    #modal-status,
+    #feed-status {
+      margin-right: auto;
+    }
+
+    /* Окно выбора статей ленты */
+    .feed-hint {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .feed-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      min-height: 120px;
+      max-height: 55vh;
+      overflow-y: auto;
+    }
+
+    .feed-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      column-gap: 10px;
+      row-gap: 2px;
+      align-items: start;
+      padding: 8px 10px;
+      border-radius: 6px;
+      background: var(--bg);
+      cursor: pointer;
+    }
+
+    .feed-item input {
+      grid-row: span 2;
+      margin-top: 2px;
+    }
+
+    .feed-item:not(.disabled):hover {
+      background: var(--active-bg);
+    }
+
+    .feed-item.disabled {
+      cursor: default;
+      opacity: 0.55;
+    }
+
+    .feed-item-title {
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.35;
+    }
+
+    .feed-item-meta {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    /* Раскладка не та, что нужна для следующего символа */
+    #layout-notice {
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+      max-width: calc(100% - 20px);
+      padding: 6px 12px;
+      border: 1px solid var(--danger);
+      border-radius: 999px;
+      background: var(--panel);
+      color: var(--danger);
+      font-size: 13px;
+      box-shadow: 0 4px 12px var(--shadow);
+      pointer-events: none;
+    }
+
+    #load-status {
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .status {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .status.success {
+      color: var(--ok);
+    }
+
+    .status.error {
+      color: var(--danger);
+    }
+
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-strong);
+    }
+
+    /* Средние экраны: колонка «текст + клавиатура» занимает всё место слева от пояснений */
+    @media (max-width: 1200px) {
+      #main-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(220px, 280px);
+        grid-template-areas:
+          "text side"
+          "keyboard side";
+      }
+
+      #app.explanations-off #main-layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas:
+          "text"
+          "keyboard";
+      }
+
+      #right-panel {
+        max-width: none;
+      }
+    }
+
+    @media (max-width: 860px) {
+      #app {
+        width: 100%;
+        height: 100%;
+        padding: 12px;
+        gap: 12px;
+      }
+
+      #main-layout,
+      #app.explanations-off #main-layout {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 2fr) minmax(0, 1fr) auto;
+        grid-template-areas:
+          "text"
+          "side"
+          "keyboard";
+        gap: 12px;
+      }
+
+      #app.explanations-off #main-layout {
+        grid-template-rows: minmax(0, 1fr) auto;
+        grid-template-areas:
+          "text"
+          "keyboard";
+      }
+
+      #left-panel,
+      #right-panel {
+        padding: 10px;
+      }
+
+      #stats {
+        gap: 2px 12px;
+        font-size: 13px;
+      }
+
+      #hints {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app"
+    class="explanations-off">
+    <header id="header">
+      <select id="source"
+        title="Источник текста: пример, свой текст или RSS-лента"
+        aria-label="Источник текста"></select>
+      <button type="button"
+        id="source-articles"
+        class="link-btn"
+        title="Выбрать другие статьи этой ленты"
+        hidden>Статьи…</button>
+      <button type="button"
+        id="dict-link"
+        class="link-btn"
+        title="Загрузить свой текст или код">Текст</button>
+      <button type="button"
+        id="refresh"
+        class="link-btn"
+        title="Начать заново (Esc)"
+        aria-label="Начать заново">⟳</button>
+      <button type="button"
+        id="keyboard-toggle"
+        class="link-btn"
+        title="Показать или скрыть экранную клавиатуру"
+        aria-pressed="true">Клавиатура</button>
+      <button type="button"
+        id="theme-toggle"
+        class="link-btn"></button>
+      <span id="source-status"
+        class="status"
+        aria-live="polite"></span>
+      <div id="stats">
+        <span title="Активная строка / всего строк в тексте">Строка <b id="progress">--</b></span>
+        <span title="Знаков в минуту и слов в минуту (слово = 5 знаков). Паузы дольше 3 секунд не учитываются">Скорость
+          <b id="speed">--</b></span>
+        <span title="Доля ошибочных нажатий от набранных знаков">Ошибки <b id="error">--</b></span>
+      </div>
+    </header>
+
+    <div id="main-layout">
+      <div id="left-panel">
+        <div id="text-container">
+          <div id="text"
+            tabindex="0"
+            role="application"
+            aria-label="Текст для набора"></div>
+          <div id="pause">Пауза — нажмите любую клавишу или кликните, чтобы продолжить</div>
+          <div id="layout-notice"
+            role="status"
+            hidden></div>
+        </div>
+      </div>
+
+      <div id="right-panel">
+        <div id="explanation-panel">
+          <div class="panel-title">Пояснения</div>
+          <div id="explanation-content"></div>
+        </div>
+      </div>
+
+      <section id="keyboard-panel"
+        aria-label="Экранная клавиатура">
+        <div id="keyboard"
+          class="keyboard"
+          aria-hidden="true"></div>
+        <div class="kb-footer">
+          <div class="kb-legend">
+            <span data-finger="lp">мизинцы</span>
+            <span data-finger="lr">безымянные</span>
+            <span data-finger="lm">средние</span>
+            <span data-finger="li">указательный левый</span>
+            <span data-finger="ri">указательный правый</span>
+            <span data-finger="th">большие</span>
+          </div>
+          <div class="kb-options">
+            <label title="Метки пальцев на основной позиции; нужный палец переходит на следующую клавишу">
+              <input type="checkbox"
+                id="kb_fingers">
+              <span>Пальцы</span>
+            </label>
+            <label title="Окрасить клавиши по зонам пальцев и выделить основной ряд">
+              <input type="checkbox"
+                id="kb_zones">
+              <span>Зоны</span>
+            </label>
+            <label title="Кисти рук на клавиатуре: пальцы на своих клавишах, нужный тянется к следующей">
+              <input type="checkbox"
+                id="kb_hands">
+              <span>Руки</span>
+            </label>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <footer id="hints">
+      <kbd>Esc</kbd> начать заново ·
+      <kbd>Backspace</kbd> снять ошибку / шаг назад ·
+      <kbd>Ctrl</kbd>+<kbd>Enter</kbd> применить текст в окне «Текст»
+    </footer>
+  </div>
+
+  <dialog id="my_dict"
+    class="dialog"
+    aria-labelledby="modal-title">
+    <div class="modal-body">
+      <div class="modal-header">
+        <h2 id="modal-title">Свой текст</h2>
+        <button type="button"
+          class="icon-btn close"
+          aria-label="Закрыть">✕</button>
+      </div>
+      <textarea id="dict_data"
+        spellcheck="false"
+        placeholder="Вставьте текст или код для тренировки..."></textarea>
+      <div class="modal-options">
+        <div class="row">
+          <input type="file"
+            id="text_file"
+            accept=".ts,.tsx,.js,.jsx,.mjs,.cjs,.py,.java,.cs,.cpp,.cc,.c,.h,.hpp,.go,.rs,.php,.sql,.sh,.json,.html,.htm,.css,.md,.txt"
+            hidden>
+          <button type="button"
+            id="text_file_btn"
+            class="btn-secondary">Открыть файл…</button>
+          <span class="status">код или текст с диска: .ts, .js, .py, .txt и др.</span>
+        </div>
+        <label>
+          <span>Подсветка синтаксиса:</span>
+          <select id="code_language">
+            <option value="">Нет</option>
+            <option value="javascript">JavaScript</option>
+            <option value="typescript">TypeScript</option>
+            <option value="jsx">JSX</option>
+            <option value="tsx">TSX</option>
+            <option value="python">Python</option>
+            <option value="java">Java</option>
+            <option value="cpp">C++</option>
+            <option value="csharp">C#</option>
+            <option value="go">Go</option>
+            <option value="rust">Rust</option>
+            <option value="php">PHP</option>
+            <option value="sql">SQL</option>
+            <option value="bash">Bash</option>
+            <option value="json">JSON</option>
+            <option value="html">HTML</option>
+            <option value="css">CSS</option>
+          </select>
+        </label>
+        <label>
+          <input type="checkbox"
+            id="simplify_typography"
+            checked>
+          <span>Заменять символы, которых нет на клавиатуре: « » “ ” → ", — – → -, … → ..., ә қ ң і → а к н и, é → e,
+            &amp;amp; → &amp;; остальные удалять</span>
+        </label>
+        <fieldset>
+          <legend>Пояснения — JSON-словарь {"слово": "описание"}</legend>
+          <div class="row">
+            <input type="file"
+              id="explanations_file"
+              accept=".json,application/json">
+          </div>
+          <div class="row">
+            <input type="text"
+              id="explanations_url"
+              placeholder="или URL: https://example.com/explanations.json">
+            <button type="button"
+              id="explanations_load"
+              class="btn-secondary">Загрузить</button>
+          </div>
+          <div class="row">
+            <span id="load-status"
+              class="status"
+              aria-live="polite">Словарь не загружен</span>
+            <button type="button"
+              id="explanations_clear"
+              class="link-btn"
+              hidden>Убрать</button>
+          </div>
+        </fieldset>
+      </div>
+      <div class="modal-footer">
+        <span id="modal-status"
+          class="status"
+          aria-live="polite"></span>
+        <button type="button"
+          class="btn-secondary close">Отмена</button>
+        <button type="button"
+          id="my_dict_ok"
+          class="btn-primary">Начать</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="feed_dialog"
+    class="dialog"
+    aria-labelledby="feed-title">
+    <div class="modal-body">
+      <div class="modal-header">
+        <h2 id="feed-title">Статьи</h2>
+        <button type="button"
+          class="icon-btn close"
+          aria-label="Закрыть">✕</button>
+      </div>
+      <p class="feed-hint">Отметьте статьи для тренировки. Анонсы и превью без полного текста выбрать нельзя.</p>
+      <div id="feed-list"
+        class="feed-list"></div>
+      <div class="modal-footer">
+        <button type="button"
+          id="feed_all"
+          class="link-btn">Выбрать все</button>
+        <span id="feed-status"
+          class="status"
+          aria-live="polite"></span>
+        <button type="button"
+          class="btn-secondary close">Отмена</button>
+        <button type="button"
+          id="feed_ok"
+          class="btn-primary">Начать</button>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"
+    integrity="sha512-D9gUyxqja7hBtkWpPWGt9wfbfaMGVt9gnyCvYa+jojwwPHLCzUm5i8rpk7vD7wNee9bA35eYIjobYPaQuKS1MQ=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"></script>
+  <script>
+    const VISIBLE_LINES = 8;      // сколько строк текста видно одновременно
+    const IDLE_LIMIT_MS = 3000;   // паузы между нажатиями дольше этого считаются простоем
+    const STORAGE_KEYS = {
+      settings: 'klava:settings',
+      explanations: 'klava:explanations',
+      position: 'klava:position',
+      keyboard: 'klava:keyboard',
+      theme: 'klava:theme',
+      layout: 'klava:layout',
+      visitor: 'klava:visitor',
+      session: 'klava:session'
+    };
+    const MODAL_HINT = 'Ctrl+Enter — начать, Esc — закрыть';
+    const DEFAULT_TEXT = `Добро пожаловать в клавиатурный тренажер!
+Выберите текст в списке вверху слева: свой текст, файл или статьи.
+Welcome to keyboard trainer!
+Choose a text source in the list at the top left.`;
+
+    // Каналы текста — источники с полным текстом статей, доступные прямо из браузера:
+    // WordPress REST API сайтов (wp), API Хабра (habr), API Википедии (wiki), ленты с разрешённым
+    // CORS (direct). Только Tengrinews читается через rss2json.com: он ограничивает частую
+    // загрузку новых лент, поэтому при отказе запрос повторяется
+    const RSS_PROXY = 'https://api.rss2json.com/v1/api.json?rss_url=';
+    const RSS_RETRY_DELAYS = [5, 15];   // секунды ожидания перед повторами
+    const CHANNEL_GROUPS = { kz: 'Статьи — Казахстан', ru: 'Статьи — на русском', en: 'Articles — English' };
+    const CHANNELS = [
+      { id: 'tengrinews', group: 'kz', name: 'Tengrinews — новости Казахстана', rss: 'https://tengrinews.kz/news.rss' },
+      { id: 'kursiv', group: 'kz', name: 'Kursiv — экономика Казахстана', wp: 'https://kz.kursiv.media' },
+      { id: 'steppe', group: 'kz', name: 'The Steppe — лонгриды', wp: 'https://the-steppe.com' },
+      // API Хабра требует queryType; новостей отдельно больше нет — это публикации формата post
+      { id: 'habr', group: 'ru', name: 'Хабр — лучшее за день', habr: 'queryType=articles&period=daily&sort=date' },
+      { id: 'habr-ts', group: 'ru', name: 'Хабр — TypeScript', habr: 'queryType=hubs&hub=typescript&sort=all' },
+      { id: 'habr-news', group: 'ru', name: 'Хабр — новости', habr: 'queryType=articles&sort=rating&formats%5B%5D=post' },
+      { id: 'nakedscience', group: 'ru', name: 'Naked Science — наука', wp: 'https://naked-science.ru' },
+      { id: 'computerra', group: 'ru', name: 'Компьютерра — технологии', wp: 'https://www.computerra.ru' },
+      { id: 'wiki-ru', group: 'ru', name: 'Википедия — случайные статьи', wiki: 'ru' },
+      { id: 'github', group: 'en', name: 'GitHub Blog', rss: 'https://github.blog/feed/', direct: true },
+      { id: 'devto', group: 'en', name: 'DEV Community', rss: 'https://dev.to/feed', direct: true },
+      { id: 'nasa', group: 'en', name: 'NASA', rss: 'https://www.nasa.gov/feed/', direct: true },
+      { id: 'techcrunch', group: 'en', name: 'TechCrunch', wp: 'https://techcrunch.com' },
+      { id: 'wiki-en', group: 'en', name: 'Wikipedia — random articles', wiki: 'en' }
+    ];
+    const CHANNEL_ITEMS = 10;          // сколько статей показывать в списке
+    const CHANNEL_MAX_LINES = 3000;    // предел строк текста из выбранных статей
+    // Признаки анонса вместо полного текста: слишком короткий текст или «читать далее» в конце
+    const PREVIEW_MIN_LENGTH = 400;
+    const PREVIEW_TAIL = /(Читать далее|Читать дальше|Read more|Continue reading|\[…\]|\[\.\.\.\]|…)\s*$/i;
+    // Служебные строки лент, которые не нужны в тексте для набора
+    const ARTICLE_NOISE = /^(The post .+ appeared first on .+|Читать далее.*|Читать дальше.*|Read more.*|Continue reading.*)$/i;
+    // HTML-мнемоники: &amp; &nbsp; &#8212; &#x2014;
+    const ENTITY = /&(#\d{1,7}|#x[\da-f]{1,6}|[a-z][a-z\d]{1,31});/i;
+    const ENTITY_ALL = new RegExp(ENTITY.source, 'gi');
+    const entityCache = new Map();   // мнемоника → символ
+    // Замены символов, которых нет на клавиатуре (при упрощении типографики). Казахские буквы —
+    // ближайшими русскими, как их пишут в русских текстах: теңге → тенге, Өскенәлі → Оскенали
+    const CHAR_REPLACEMENTS = {
+      'ә': 'а', 'Ә': 'А', 'ғ': 'г', 'Ғ': 'Г', 'қ': 'к', 'Қ': 'К', 'ң': 'н', 'Ң': 'Н', 'ө': 'о', 'Ө': 'О',
+      'ұ': 'у', 'Ұ': 'У', 'ү': 'у', 'Ү': 'У', 'һ': 'х', 'Һ': 'Х', 'і': 'и', 'І': 'И',
+      'ß': 'ss', 'æ': 'ae', 'Æ': 'AE', 'œ': 'oe', 'Œ': 'OE', 'ø': 'o', 'Ø': 'O', 'ł': 'l', 'Ł': 'L',
+      'đ': 'd', 'Đ': 'D', 'ı': 'i',
+      '×': 'x', '÷': '/', '±': '+-', '≈': '~', '≠': '!=', '≤': '<=', '≥': '>=', '¹': '1', '²': '2', '³': '3',
+      '½': '1/2', '¼': '1/4', '¾': '3/4', '→': '->', '←': '<-', '⇒': '=>', '•': '-', '·': '-',
+      '©': '(c)', '®': '(R)', '™': '(TM)', '€': 'EUR', '£': 'GBP', '₸': 'тг', '₽': 'руб.',
+      // Псевдографика деревьев каталогов: «├── src» → «+-- src»
+      '─': '-', '━': '-', '│': '|', '┃': '|', '├': '+', '┤': '+', '┬': '+', '┴': '+', '┼': '+',
+      '└': '+', '┘': '+', '┌': '+', '┐': '+'
+    };
+    const CHAR_REPLACEMENT_RE = new RegExp(`[${Object.keys(CHAR_REPLACEMENTS).join('')}]`, 'g');
+    // Разделы в конце статей Википедии: всё начиная с них — ссылки и списки, а не текст
+    const WIKI_END_SECTIONS = new Set([
+      'Примечания', 'Литература', 'Ссылки', 'См. также', 'Источники', 'Комментарии',
+      'Notes', 'References', 'See also', 'External links', 'Further reading', 'Bibliography', 'Sources', 'Footnotes'
+    ]);
+    // Подсветка по расширению открытого файла
+    const FILE_LANGUAGES = {
+      ts: 'typescript', tsx: 'tsx', js: 'javascript', jsx: 'jsx', mjs: 'javascript', cjs: 'javascript',
+      py: 'python', java: 'java', cs: 'csharp', cpp: 'cpp', cc: 'cpp', c: 'cpp', h: 'cpp', hpp: 'cpp',
+      go: 'go', rs: 'rust', php: 'php', sql: 'sql', sh: 'bash', json: 'json', html: 'html', htm: 'html', css: 'css'
+    };
+
+    // Физическое расположение клавиш (ANSI): код KeyboardEvent.code и ширина в клавишах
+    const KEY_ROWS = [
+      'Backquote Digit1 Digit2 Digit3 Digit4 Digit5 Digit6 Digit7 Digit8 Digit9 Digit0 Minus Equal Backspace:2',
+      'Tab:1.5 KeyQ KeyW KeyE KeyR KeyT KeyY KeyU KeyI KeyO KeyP BracketLeft BracketRight Backslash:1.5',
+      'CapsLock:1.75 KeyA KeyS KeyD KeyF KeyG KeyH KeyJ KeyK KeyL Semicolon Quote Enter:2.25',
+      'ShiftLeft:2.25 KeyZ KeyX KeyC KeyV KeyB KeyN KeyM Comma Period Slash ShiftRight:2.75',
+      'ControlLeft:1.25 MetaLeft:1.25 AltLeft:1.25 Space:6.25 AltRight:1.25 MetaRight:1.25 ContextMenu:1.25 ControlRight:1.25'
+    ];
+    const SPECIAL_LABELS = {
+      Backspace: '⌫', Tab: 'Tab', CapsLock: 'Caps', Enter: 'Enter', ShiftLeft: 'Shift', ShiftRight: 'Shift',
+      ControlLeft: 'Ctrl', ControlRight: 'Ctrl', MetaLeft: 'Win', MetaRight: 'Win', AltLeft: 'Alt', AltRight: 'Alt',
+      ContextMenu: '☰', Space: ''
+    };
+    // Символы раскладок по рядам KEY_ROWS: пары «без Shift + с Shift» для символьных клавиш
+    const LAYOUTS = {
+      ru: {
+        name: 'Русская',
+        rows: [
+          'ёЁ 1! 2" 3№ 4; 5% 6: 7? 8* 9( 0) -_ =+',
+          'йЙ цЦ уУ кК еЕ нН гГ шШ щЩ зЗ хХ ъЪ \\/',
+          'фФ ыЫ вВ аА пП рР оО лЛ дД жЖ эЭ',
+          'яЯ чЧ сС мМ иИ тТ ьЬ бБ юЮ .,'
+        ]
+      },
+      en: {
+        name: 'English',
+        rows: [
+          '`~ 1! 2@ 3# 4$ 5% 6^ 7& 8* 9( 0) -_ =+',
+          'qQ wW eE rR tT yY uU iI oO pP [{ ]} \\|',
+          'aA sS dD fF gG hH jJ kK lL ;: \'"',
+          'zZ xX cC vV bB nN mM ,< .> /?'
+        ]
+      }
+    };
+    // Символы, которые можно набрать в русской или английской раскладке
+    const TYPABLE = new Set(Object.values(LAYOUTS).flatMap(layout => [...layout.rows.join(' ')]));
+    // Зоны пальцев по стандартной десятипальцевой схеме
+    const FINGER_KEYS = {
+      lp: 'Backquote Digit1 Tab KeyQ CapsLock KeyA ShiftLeft KeyZ ControlLeft',
+      lr: 'Digit2 KeyW KeyS KeyX',
+      lm: 'Digit3 KeyE KeyD KeyC',
+      li: 'Digit4 Digit5 KeyR KeyT KeyF KeyG KeyV KeyB',
+      ri: 'Digit6 Digit7 KeyY KeyU KeyH KeyJ KeyN KeyM',
+      rm: 'Digit8 KeyI KeyK Comma',
+      rr: 'Digit9 KeyO KeyL Period',
+      rp: 'Digit0 Minus Equal Backspace KeyP BracketLeft BracketRight Backslash Semicolon Quote Enter Slash ShiftRight ControlRight',
+      th: 'Space'
+    };
+    // Исходная позиция пальцев: основной ряд ФЫВА — ОЛДЖ, большие пальцы на пробеле
+    const FINGER_HOME = {
+      lp: 'KeyA', lr: 'KeyS', lm: 'KeyD', li: 'KeyF', ri: 'KeyJ', rm: 'KeyK', rr: 'KeyL', rp: 'Semicolon',
+      lt: 'Space', rt: 'Space'
+    };
+    const FINGER_NAMES = {
+      lp: 'Левый мизинец', lr: 'Левый безымянный', lm: 'Левый средний', li: 'Левый указательный',
+      ri: 'Правый указательный', rm: 'Правый средний', rr: 'Правый безымянный', rp: 'Правый мизинец',
+      lt: 'Левый большой', rt: 'Правый большой'
+    };
+    const HOME_ROW = 'KeyA KeyS KeyD KeyF KeyG KeyH KeyJ KeyK KeyL Semicolon Quote';
+    // Кисти рук: пальцы каждой руки, большой палец и его место на пробеле (доля ширины пробела)
+    const HANDS = {
+      left: { fingers: ['lp', 'lr', 'lm', 'li'], thumb: 'lt', thumbAt: 0.38, side: 1 },
+      right: { fingers: ['ri', 'rm', 'rr', 'rp'], thumb: 'rt', thumbAt: 0.62, side: -1 }
+    };
+    // Форма пальцев в ширинах клавиши: основание пальца смещено от его клавиши основного ряда
+    // на dx по горизонтали и dy вниз; w — ширина у основания, t — у кончика
+    const FINGER_SHAPE = {
+      lp: { dx: 0.6, dy: 0.95, w: 0.4, t: 0.32 }, lr: { dx: 0.35, dy: 1.2, w: 0.45, t: 0.37 },
+      lm: { dx: 0.1, dy: 1.3, w: 0.47, t: 0.39 }, li: { dx: -0.2, dy: 1.15, w: 0.47, t: 0.39 },
+      ri: { dx: 0.2, dy: 1.15, w: 0.47, t: 0.39 }, rm: { dx: -0.1, dy: 1.3, w: 0.47, t: 0.39 },
+      rr: { dx: -0.35, dy: 1.2, w: 0.45, t: 0.37 }, rp: { dx: -0.6, dy: 0.95, w: 0.4, t: 0.32 }
+    };
+    const THUMB_SHAPE = { w: 0.6, t: 0.48 };
+    const FINGERTIP_DY = 0.28;   // кончик пальца касается нижней части клавиши, не закрывая подпись
+
+    // Статистика посещений: данные уходят на сервер сайта, IP и местоположение определяются там
+    const METRICS_URL = '/stats/collect.php';
+    const METRICS_HEARTBEAT_MS = 60000;      // как часто отправлять накопленное, пока страницей пользуются
+    const METRICS_ACTIVE_MS = 30000;         // после последнего действия посетитель ещё считается активным
+    const METRICS_SESSION_MS = 30 * 60000;   // перерыв, после которого начинается новый визит
+    const METRICS_MAX_ERRORS = 5;            // ошибок JavaScript за просмотр, не больше
+
+    // Просмотр — одна загрузка страницы; визит объединяет просмотры с перерывами меньше
+    // METRICS_SESSION_MS; посетитель — браузер (id в localStorage). Счётчики отправляются
+    // нарастающим итогом: потерянный запрос не искажает данные, следующий их догонит
+    class SiteMetrics {
+      constructor() {
+        this.enabled = /^https?:$/.test(location.protocol) && !navigator.webdriver;
+        this.getContext = () => ({});
+        this.viewId = this.randomId();
+        this.visitorId = this.load(STORAGE_KEYS.visitor) || this.randomId();
+        this.store(STORAGE_KEYS.visitor, this.visitorId);
+        const session = this.load(STORAGE_KEYS.session);
+        this.sessionId = session && session.id && Date.now() - session.at < METRICS_SESSION_MS ? session.id : this.randomId();
+        this.counters = { visible: 0, active: 0, typing: 0, keys: 0, chars: 0, errors: 0, lines: 0 };
+        this.queue = [];
+        this.errorCount = 0;
+        this.dirty = true;
+        this.visible = document.visibilityState === 'visible';
+        this.lastTick = performance.now();
+        this.lastActivity = this.visible ? this.lastTick : -Infinity;
+        if (!this.enabled) return;
+
+        const activity = () => {
+          this.lastActivity = performance.now();
+          this.dirty = true;
+        };
+        for (const type of ['keydown', 'pointerdown', 'wheel', 'touchstart']) {
+          addEventListener(type, activity, { capture: true, passive: true });
+        }
+        // Движений мыши много — отмечаем их не чаще раза в секунду
+        addEventListener('pointermove', () => {
+          if (performance.now() - this.lastActivity > 1000) activity();
+        }, { passive: true });
+
+        document.addEventListener('visibilitychange', () => {
+          this.tick();
+          this.visible = document.visibilityState === 'visible';
+          if (this.visible) activity();
+          else this.send();   // вкладку скрыли или закрывают — возможно, это последний шанс отправить
+        });
+        addEventListener('pagehide', () => this.send());
+        addEventListener('error', (e) => this.reportError(e.message, e.filename ? `${e.filename}:${e.lineno}` : ''));
+        addEventListener('unhandledrejection', (e) => {
+          const reason = e.reason;
+          this.reportError(reason && reason.message ? reason.message : String(reason), '');
+        });
+        setInterval(() => this.tick(), 1000);
+        setInterval(() => {
+          if (this.dirty) this.send();
+        }, METRICS_HEARTBEAT_MS);
+      }
+
+      // Тренажёр сообщает тему, источник текста и раскладку; первая отправка регистрирует просмотр
+      attach(getContext) {
+        this.getContext = getContext;
+        this.send();
+      }
+
+      // Время, пока вкладка видна, и активное время — пока были действия за последние METRICS_ACTIVE_MS
+      tick() {
+        const now = performance.now();
+        const dt = now - this.lastTick;
+        this.lastTick = now;
+        if (!this.visible) return;
+        this.counters.visible += dt;
+        if (now - this.lastActivity < METRICS_ACTIVE_MS) this.counters.active += dt;
+      }
+
+      // Нажатие в тренажёре: gap — пауза после предыдущего нажатия, уже ограниченная простоем
+      keystroke(correct, gap) {
+        this.counters.keys++;
+        if (correct) this.counters.chars++;
+        else this.counters.errors++;
+        this.counters.typing += gap;
+      }
+
+      line() {
+        this.counters.lines++;
+      }
+
+      event(name, data) {
+        this.queue.push({ name, t: Math.round(performance.now()), data });
+        this.dirty = true;
+      }
+
+      reportError(message, source) {
+        if (++this.errorCount > METRICS_MAX_ERRORS) return;
+        this.event('js_error', { message: String(message).slice(0, 300), source: String(source).slice(0, 200) });
+      }
+
+      send() {
+        if (!this.enabled) return;
+        this.tick();
+        const counters = {};
+        for (const [name, value] of Object.entries(this.counters)) counters[name] = Math.round(value);
+        const nav = performance.getEntriesByType ? performance.getEntriesByType('navigation')[0] : null;
+        const body = JSON.stringify({
+          v: this.viewId,
+          s: this.sessionId,
+          u: this.visitorId,
+          info: this.info(),
+          m: { ...counters, total: Math.round(performance.now()), load: nav && nav.loadEventEnd > 0 ? Math.round(nav.loadEventEnd) : null },
+          events: this.queue.splice(0, 20)
+        });
+        this.dirty = this.queue.length > 0;
+        this.store(STORAGE_KEYS.session, { id: this.sessionId, at: Date.now() });
+
+        // sendBeacon доходит и при закрытии вкладки; строка уходит как text/plain — без лишних проверок CORS
+        let sent = false;
+        try {
+          sent = navigator.sendBeacon(METRICS_URL, body);
+        } catch (e) {
+          sent = false;
+        }
+        if (!sent) fetch(METRICS_URL, { method: 'POST', body, keepalive: true }).catch(() => { });
+      }
+
+      info() {
+        const params = new URLSearchParams(location.search);
+        const context = this.getContext();
+        return {
+          url: location.pathname + location.search,
+          referrer: document.referrer,
+          utm_source: params.get('utm_source'),
+          utm_medium: params.get('utm_medium'),
+          utm_campaign: params.get('utm_campaign'),
+          language: navigator.language,
+          languages: (navigator.languages || []).join(','),
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          screen: `${screen.width}x${screen.height}`,
+          viewport: `${innerWidth}x${innerHeight}`,
+          dpr: devicePixelRatio,
+          touch: navigator.maxTouchPoints > 0,
+          connection: navigator.connection ? navigator.connection.effectiveType : null,
+          theme: context.theme,
+          source: context.source,
+          layout: context.layout
+        };
+      }
+
+      randomId() {
+        if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+        return Date.now().toString(36) + Math.random().toString(36).slice(2, 12);
+      }
+
+      load(key) {
+        try {
+          return JSON.parse(localStorage.getItem(key));
+        } catch (e) {
+          return null;
+        }
+      }
+
+      store(key, value) {
+        try {
+          localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          // Хранилище недоступно — посетитель будет считаться новым при каждой загрузке
+        }
+      }
+    }
+
+    class VirtualKeyboard {
+      // onWarning(нужная, текущая) — следующему символу нужна другая раскладка (или null — всё совпадает);
+      // onLayout(раскладка) — определена раскладка, в которой реально набирают
+      constructor(root, { onWarning = () => { }, onLayout = () => { } } = {}) {
+        this.root = root;
+        this.onWarning = onWarning;
+        this.onLayout = onLayout;
+        this.keys = new Map();       // код клавиши → элемент .kb-key
+        this.markers = new Map();    // палец → метка .kb-finger
+        this.layouts = {};           // раскладка → { labels: Map(код → [символ, символ с Shift]), chars: Map(символ → { code, shift }) }
+        this.layout = 'en';
+        this.targets = [];
+        this.lastText = null;
+        this.lastPos = null;
+        this.fingerPlaces = new Map();  // палец → код клавиши, на которой он сейчас
+        this.detected = null;           // раскладка, в которой реально набирают (по нажатиям)
+        this.warning = null;            // раскладка, на которую нужно переключиться
+
+        this.fingerOf = new Map();
+        for (const [finger, codes] of Object.entries(FINGER_KEYS)) {
+          codes.split(' ').forEach(code => this.fingerOf.set(code, finger));
+        }
+
+        this.buildLayouts();
+        this.render();
+      }
+
+      buildLayouts() {
+        for (const [id, layout] of Object.entries(LAYOUTS)) {
+          const labels = new Map();
+          const chars = new Map([[' ', { code: 'Space', shift: false }]]);
+          layout.rows.forEach((row, r) => {
+            const codes = KEY_ROWS[r].split(' ').map(item => item.split(':')[0]).filter(code => !(code in SPECIAL_LABELS));
+            row.split(' ').forEach((pair, i) => {
+              const [base, shifted] = [...pair];
+              labels.set(codes[i], [base, shifted]);
+              chars.set(base, { code: codes[i], shift: false });
+              if (!chars.has(shifted)) chars.set(shifted, { code: codes[i], shift: true });
+            });
+          });
+          this.layouts[id] = { labels, chars };
+        }
+      }
+
+      render() {
+        const homeRow = new Set(HOME_ROW.split(' '));
+        for (const rowDef of KEY_ROWS) {
+          const row = document.createElement('div');
+          row.className = 'kb-row';
+          for (const item of rowDef.split(' ')) {
+            const [code, width] = item.split(':');
+            const key = document.createElement('div');
+            key.className = 'kb-key';
+            key.dataset.code = code;
+            if (width) key.style.setProperty('--w', width);
+            if (this.fingerOf.has(code)) key.dataset.finger = this.fingerOf.get(code);
+            if (homeRow.has(code)) key.classList.add('home');
+            if (code === 'KeyF' || code === 'KeyJ') key.classList.add('bump');
+
+            const cap = document.createElement('div');
+            cap.className = 'kb-cap';
+            if (code in SPECIAL_LABELS) cap.textContent = SPECIAL_LABELS[code];
+            key.appendChild(cap);
+            row.appendChild(key);
+            this.keys.set(code, key);
+          }
+          this.root.appendChild(row);
+        }
+
+        for (const [finger, code] of Object.entries(FINGER_HOME)) {
+          const marker = document.createElement('div');
+          marker.className = 'kb-finger';
+          if (finger === 'lt') marker.classList.add('thumb-l');
+          if (finger === 'rt') marker.classList.add('thumb-r');
+          marker.dataset.finger = finger === 'lt' || finger === 'rt' ? 'th' : finger;
+          marker.title = FINGER_NAMES[finger];
+          this.keys.get(code).appendChild(marker);
+          this.markers.set(finger, marker);
+        }
+
+        this.renderHands();
+        this.renderLabels();
+      }
+
+      // SVG-слой с кистями рук (вид сверху, тыльная сторона). Каждая рука нарисована дважды:
+      // полупрозрачной заливкой (прозрачность на всю группу, чтобы пересечения не темнели)
+      // и контуром, который фильтр строит по объединению ладони и пальцев. Ладонь книзу
+      // растворяется маской — запястье не рисуется. Поверх — ногти и складки на суставах
+      renderHands() {
+        const NS = 'http://www.w3.org/2000/svg';
+        const node = (tag, attrs, parent) => {
+          const el = document.createElementNS(NS, tag);
+          for (const [name, value] of Object.entries(attrs)) el.setAttribute(name, value);
+          if (parent) parent.appendChild(el);
+          return el;
+        };
+
+        const svg = node('svg', { class: 'kb-hands' });
+        const defs = node('defs', {}, svg);
+        const filter = node('filter', { id: 'kb-hand-outline', x: '-10%', y: '-10%', width: '120%', height: '120%' }, defs);
+        node('feMorphology', { in: 'SourceGraphic', operator: 'dilate', radius: '1.5', result: 'wide' }, filter);
+        node('feComposite', { in: 'wide', in2: 'SourceGraphic', operator: 'out' }, filter);
+        const gradient = node('linearGradient', { id: 'kb-hand-fade-gradient', gradientUnits: 'userSpaceOnUse', x1: 0, x2: 0 }, defs);
+        node('stop', { offset: 0, 'stop-color': '#fff' }, gradient);
+        node('stop', { offset: 1, 'stop-color': '#000' }, gradient);
+        const fadeMask = node('mask', { id: 'kb-hand-fade', maskUnits: 'userSpaceOnUse' }, defs);
+        const fadeRect = node('rect', { x: 0, y: 0, fill: 'url(#kb-hand-fade-gradient)' }, fadeMask);
+
+        const fillLayer = node('g', { class: 'kb-hand-fill', mask: 'url(#kb-hand-fade)' }, svg);
+        const outlineLayer = node('g', { filter: 'url(#kb-hand-outline)', mask: 'url(#kb-hand-fade)' }, svg);
+        const detailLayer = node('g', { class: 'kb-hand-details', mask: 'url(#kb-hand-fade)' }, svg);
+        const highlightLayer = node('g', { class: 'kb-hand-active', mask: 'url(#kb-hand-fade)' }, svg);
+
+        // Части рук: имя пальца или стороны → элементы, которые рисуются по одной форме
+        this.hands = { svg, gradient, fadeRect, parts: new Map(), details: new Map(), highlights: new Map() };
+        for (const [side, hand] of Object.entries(HANDS)) {
+          for (const finger of [...hand.fingers, hand.thumb]) {
+            const color = finger === hand.thumb ? 'th' : finger;
+            const highlight = node('path', { 'data-finger': color }, highlightLayer);
+            this.hands.highlights.set(finger, highlight);
+            this.hands.parts.set(finger,
+              [...[fillLayer, outlineLayer].map(layer => node('path', { 'data-finger': color }, layer)), highlight]);
+            this.hands.details.set(finger, {
+              nail: node('ellipse', { class: 'kb-nail' }, detailLayer),
+              creases: [node('path', { class: 'kb-crease' }, detailLayer), node('path', { class: 'kb-crease' }, detailLayer)]
+            });
+          }
+          // Ладонь — после пальцев: в заливке она закрывает их основания
+          this.hands.parts.set(side, [fillLayer, outlineLayer].map(layer => node('path', { class: 'kb-palm' }, layer)));
+        }
+        this.root.appendChild(svg);
+
+        new ResizeObserver(() => this.drawHands()).observe(this.root);
+      }
+
+      // Пальцы тянутся от основания на ладони к клавише, на которой они сейчас
+      drawHands() {
+        if (!this.root.classList.contains('hands')) return;
+        const box = this.root.getBoundingClientRect();
+        if (!box.width) return;
+
+        const u = this.keys.get('KeyA').getBoundingClientRect().width;
+        const keyPoint = (code, fx = 0.5) => {
+          const rect = this.keys.get(code).getBoundingClientRect();
+          return { x: rect.left - box.left + rect.width * fx, y: rect.top - box.top + rect.height / 2 };
+        };
+        const { svg, gradient, fadeRect, parts } = this.hands;
+        svg.setAttribute('viewBox', `0 0 ${box.width} ${box.height}`);
+        fadeRect.setAttribute('width', box.width);
+        fadeRect.setAttribute('height', box.height);
+
+        let fadeFrom = Infinity;
+        let fadeTo = 0;
+        for (const [side, hand] of Object.entries(HANDS)) {
+          const knuckles = hand.fingers.map(finger => {
+            const shape = FINGER_SHAPE[finger];
+            const home = keyPoint(FINGER_HOME[finger]);
+            const knuckle = { x: home.x + shape.dx * u, y: home.y + (FINGERTIP_DY + shape.dy) * u };
+            const tip = keyPoint(this.fingerPlaces.get(finger) || FINGER_HOME[finger]);
+            tip.y += FINGERTIP_DY * u;
+            this.drawFinger(finger, knuckle, tip, shape.w * u, shape.t * u, 2);
+            return knuckle;
+          }).sort((a, b) => a.x - b.x);
+
+          // Ладонь: верхний край по основаниям пальцев, сбоку — мизинцевый край и подушка
+          // большого пальца, снизу контур растворяется (запястье не рисуется)
+          const s = hand.side;   // +1 — большой палец справа от ладони (левая рука), −1 — слева
+          const outer = s > 0 ? knuckles[0] : knuckles[knuckles.length - 1];
+          const inner = s > 0 ? knuckles[knuckles.length - 1] : knuckles[0];
+          const midY = knuckles.reduce((sum, k) => sum + k.y, 0) / knuckles.length;
+          const bottom = midY + 1.4 * u;
+          const outline = [
+            ...(s > 0 ? knuckles : [...knuckles].reverse()).map(k => ({ x: k.x, y: k.y - 0.08 * u })),
+            { x: inner.x + s * 0.3 * u, y: inner.y + 0.3 * u },
+            { x: inner.x + s * 0.3 * u, y: midY + 0.8 * u },
+            { x: inner.x - s * 0.05 * u, y: bottom },
+            { x: outer.x + s * 0.3 * u, y: bottom },
+            { x: outer.x - s * 0.24 * u, y: midY + 0.9 * u },
+            { x: outer.x - s * 0.3 * u, y: outer.y + 0.25 * u }
+          ];
+          const palm = this.smoothPath(outline);
+          parts.get(side).forEach(path => path.setAttribute('d', palm));
+          fadeFrom = Math.min(fadeFrom, midY + 0.8 * u);
+          fadeTo = Math.max(fadeTo, bottom);
+
+          // Большой палец — из нижней части ладони к пробелу
+          const thumbTip = keyPoint('Space', hand.thumbAt);
+          thumbTip.y += FINGERTIP_DY * u * 0.4;
+          this.drawFinger(hand.thumb, { x: inner.x - s * 0.1 * u, y: midY + 1.15 * u }, thumbTip,
+            THUMB_SHAPE.w * u, THUMB_SHAPE.t * u, 1);
+        }
+        gradient.setAttribute('y1', fadeFrom);
+        gradient.setAttribute('y2', fadeTo);
+      }
+
+      // Палец: сужается от основания к кончику, у среднего сустава чуть шире; на кончике — ноготь,
+      // на суставах — складки
+      drawFinger(finger, base, tip, baseWidth, tipWidth, creaseCount) {
+        const dx = tip.x - base.x;
+        const dy = tip.y - base.y;
+        const length = Math.hypot(dx, dy) || 1;
+        const ux = dx / length;
+        const uy = dy / length;
+        const nx = -uy;
+        const ny = ux;
+        const rb = baseWidth / 2;
+        const rt = tipWidth / 2;
+        const at = (dist, offset) => ({ x: base.x + ux * dist + nx * offset, y: base.y + uy * dist + ny * offset });
+        const pt = (p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+
+        // Бока — плавные кривые с утолщением у сустава; основание скруглено (костяшка)
+        const bulge = (rb + rt) / 2 * 1.12;
+        const d = `M${pt(at(0, rb))}Q${pt(at(length * 0.45, bulge))} ${pt(at(length, rt))}` +
+          `A${rt.toFixed(1)},${rt.toFixed(1)} 0 0 0 ${pt(at(length, -rt))}` +
+          `Q${pt(at(length * 0.45, -bulge))} ${pt(at(0, -rb))}` +
+          `A${rb.toFixed(1)},${rb.toFixed(1)} 0 0 0 ${pt(at(0, rb))}Z`;
+        this.hands.parts.get(finger).forEach(path => path.setAttribute('d', d));
+
+        const { nail, creases } = this.hands.details.get(finger);
+        const nailCenter = at(length + rt * 0.15, 0);
+        nail.setAttribute('cx', nailCenter.x.toFixed(1));
+        nail.setAttribute('cy', nailCenter.y.toFixed(1));
+        nail.setAttribute('rx', (rt * 0.62).toFixed(1));
+        nail.setAttribute('ry', (rt * 0.7).toFixed(1));
+        nail.setAttribute('transform', `rotate(${(Math.atan2(uy, ux) * 180 / Math.PI).toFixed(1)} ${pt(nailCenter).replace(',', ' ')})`);
+
+        // Складки: у ногтевого сустава и у среднего (у большого пальца — одна)
+        const positions = [length - rt * 1.7, length * 0.48].slice(0, creaseCount);
+        creases.forEach((crease, i) => {
+          const dist = positions[i];
+          if (dist === undefined || dist <= 0) {
+            crease.setAttribute('d', '');
+            return;
+          }
+          const half = (rt + (rb - rt) * (1 - dist / length)) * 0.55;
+          crease.setAttribute('d', `M${pt(at(dist, half))}Q${pt(at(dist + half * 0.35, 0))} ${pt(at(dist, -half))}`);
+        });
+      }
+
+      // Замкнутая плавная кривая через точки (сплайн Катмулла — Рома в кривых Безье)
+      smoothPath(points) {
+        const n = points.length;
+        const pt = (p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`;
+        let d = `M${pt(points[0])}`;
+        for (let i = 0; i < n; i++) {
+          const p0 = points[(i - 1 + n) % n];
+          const p1 = points[i];
+          const p2 = points[(i + 1) % n];
+          const p3 = points[(i + 2) % n];
+          const c1 = { x: p1.x + (p2.x - p0.x) / 6, y: p1.y + (p2.y - p0.y) / 6 };
+          const c2 = { x: p2.x - (p3.x - p1.x) / 6, y: p2.y - (p3.y - p1.y) / 6 };
+          d += `C${pt(c1)} ${pt(c2)} ${pt(p2)}`;
+        }
+        return d + 'Z';
+      }
+
+      renderLabels() {
+        for (const [code, [base, shifted]] of this.layouts[this.layout].labels) {
+          const cap = this.keys.get(code).firstElementChild;
+          cap.textContent = '';
+          // Буквы показываются в текущем регистре (его задают Shift и CapsLock через CSS),
+          // на остальных клавишах — оба символа
+          const isLetter = base !== shifted && base.toUpperCase() === shifted;
+          if (isLetter) {
+            cap.appendChild(this.label('kb-base kb-letter', base));
+          } else {
+            cap.appendChild(this.label('kb-shift', shifted));
+            cap.appendChild(this.label('kb-base', base));
+          }
+        }
+        this.setWarning(this.warning);
+      }
+
+      label(className, text) {
+        const span = document.createElement('span');
+        span.className = className;
+        span.textContent = text;
+        return span;
+      }
+
+      setOptions({ fingers, zones, hands }) {
+        this.root.classList.toggle('fingers', fingers);
+        this.root.classList.toggle('zones', zones);
+        this.root.classList.toggle('hands', hands);
+        this.drawHands();
+      }
+
+      // Подсвечивает клавишу для символа text[pos] и переносит на неё нужный палец
+      setTarget(text, pos) {
+        this.lastText = text;
+        this.lastPos = pos;
+        // Пока реальная раскладка неизвестна (ещё ничего не набрано) — показываем ту, что нужна по тексту
+        if (!this.detected) this.setLayout(this.chooseLayout(text, pos));
+
+        // Символ только одной раскладки ищем в ней; общий (цифры, пробел, часть знаков) — в текущей
+        const needed = this.ownLayout(text[pos]);
+        const info = this.layouts[needed || this.layout].chars.get(text[pos]);
+        this.setWarning(this.detected && needed && needed !== this.detected ? needed : null);
+
+        const code = info ? info.code : null;
+        const finger = code ? this.fingerOf.get(code) : null;
+        // Shift нажимается мизинцем противоположной руки
+        const shiftCode = info && info.shift ? (finger[0] === 'l' ? 'ShiftRight' : 'ShiftLeft') : null;
+
+        this.targets.forEach(key => key.classList.remove('target'));
+        this.targets = [code, shiftCode].filter(Boolean).map(c => this.keys.get(c));
+        this.targets.forEach(key => key.classList.add('target'));
+
+        for (const [name, marker] of this.markers) {
+          let place = FINGER_HOME[name];
+          let active = false;
+          if (name === finger) {
+            place = code;
+            active = true;
+          } else if (shiftCode && name === this.fingerOf.get(shiftCode)) {
+            place = shiftCode;
+            active = true;
+          } else if (finger === 'th' && (name === 'lt' || name === 'rt')) {
+            active = true;
+          }
+          const key = this.keys.get(place);
+          if (marker.parentNode !== key) key.appendChild(marker);
+          marker.classList.toggle('active', active);
+          this.fingerPlaces.set(name, place);
+          this.hands.highlights.get(name).classList.toggle('on', active);
+        }
+        this.drawHands();
+      }
+
+      // Раскладка для символа: однозначный символ определяет её сам; общий для обеих раскладок
+      // (цифры, пробел, часть знаков) сохраняет текущую, а в начале строки — по ближайшей букве дальше
+      chooseLayout(text, pos) {
+        if (pos >= text.length) return this.layout;
+        const layout = this.ownLayout(text[pos]);
+        if (layout || pos > 0) return layout || this.layout;
+        for (let i = 1; i < text.length; i++) {
+          const next = this.ownLayout(text[i]);
+          if (next) return next;
+        }
+        return this.layout;
+      }
+
+      // Раскладка, в которой символ есть только в ней одной (буквы, часть знаков), иначе null
+      ownLayout(ch) {
+        const ru = this.layouts.ru.chars.has(ch);
+        const en = this.layouts.en.chars.has(ch);
+        return ru === en ? null : (ru ? 'ru' : 'en');
+      }
+
+      // Новый текст: пока реальная раскладка не известна, начальная — по первому однозначному
+      // символу текста, чтобы строка из одних общих знаков (например «/**») не показывалась в прежней
+      resetLayout(lines) {
+        if (this.detected) return;
+        for (const line of lines) {
+          for (const ch of line) {
+            const layout = this.ownLayout(ch);
+            if (layout) {
+              this.setLayout(layout);
+              return;
+            }
+          }
+        }
+      }
+
+      setLayout(layout) {
+        if (layout === this.layout) return;
+        this.layout = layout;
+        this.renderLabels();
+      }
+
+      // Браузер не сообщает раскладку системы, поэтому она определяется по набранным символам:
+      // после переключения (Alt+Shift, Win+Пробел) клавиатура меняется с первой же нажатой буквы
+      detectLayout(ch) {
+        const layout = this.ownLayout(ch);
+        if (layout && layout !== this.detected) this.setDetected(layout);
+      }
+
+      // Раскладку переключили сочетанием клавиш: какая включилась, браузер не сообщает, поэтому
+      // считаем, что другая из двух; первая набранная буква подтвердит или поправит
+      toggleLayout() {
+        this.setDetected(this.layout === 'ru' ? 'en' : 'ru');
+      }
+
+      setDetected(layout) {
+        if (!LAYOUTS[layout]) return;
+        this.detected = layout;
+        this.setLayout(layout);
+        this.onLayout(layout);
+        if (this.lastText !== null) this.setTarget(this.lastText, this.lastPos);
+      }
+
+      // На пробеле — название раскладки, а если следующему символу нужна другая — подсказка
+      setWarning(layout) {
+        this.warning = layout;
+        const space = this.keys.get('Space');
+        space.classList.toggle('kb-warn', Boolean(layout));
+        space.firstElementChild.textContent = layout
+          ? `Переключите раскладку: ${LAYOUTS[layout].name}`
+          : LAYOUTS[this.layout].name;
+        this.onWarning(layout, this.layout);
+      }
+
+      // Регистр букв на клавишах: Shift и CapsLock (CapsLock действует только на буквы)
+      setModifiers(shift, caps) {
+        this.root.classList.toggle('shift-on', shift);
+        this.root.classList.toggle('caps-on', caps);
+        this.root.classList.toggle('upper', shift !== caps);
+      }
+
+      // Физически нажатые клавиши, включая Shift, Ctrl и Alt, показываются нажатыми
+      press(code, down) {
+        const key = this.keys.get(code);
+        if (key) key.classList.toggle('pressed', down);
+      }
+
+      // Окно потеряло фокус — отпускания клавиш уже не придут, поэтому сбрасываем нажатия
+      releaseAll() {
+        this.root.querySelectorAll('.kb-key.pressed').forEach(key => key.classList.remove('pressed'));
+        this.setModifiers(false, this.root.classList.contains('caps-on'));
+      }
+
+      // Короткая вспышка физически нажатой клавиши: зелёная — верно, красная — ошибка
+      flash(code, ok) {
+        const key = this.keys.get(code);
+        if (!key || !key.animate) return;
+        key.firstElementChild.animate(
+          [{ backgroundColor: ok ? '#2ea043' : '#da3633', offset: 0 }],
+          { duration: 250, easing: 'ease-out' }
+        );
+      }
+    }
+
+    class KeyboardTrainer {
+      constructor() {
+        this.lines = [];               // подготовленные строки: { text, classes }
+        this.lineIndex = 0;            // индекс активной строки в this.lines
+        this.currentText = '';
+        this.chars = [];               // span-элементы символов активной строки
+        this.pos = 0;                  // позиция курсора в активной строке
+        this.cursorEl = null;
+        this.hasError = false;
+        this.lastKeyAt = null;
+        this.settings = { text: '', language: '', simplify: true, source: 'default' };
+        this.theme = 'dark';
+        this.sourceStatusTimer = null;
+        this.channel = null;           // лента, статьи которой выбираются в окне
+        this.channelItems = [];        // статьи: { title, date, link, text, state, selected, row }
+        this.channelRequest = 0;       // номер последней загрузки: ответы на устаревшие игнорируются
+        this.layoutHotkey = false;     // нажато сочетание переключения раскладки
+        this.explanationIndex = null;  // { map, regex } для поиска пояснений в строке
+        this.lineExplanations = [];    // пояснения активной строки: { ranges, el }
+        this.activeExplanation = null;
+        this.backdropPressed = false;
+        this.stats = { time: 0, chars: 0, errors: 0 };
+
+        const byId = (id) => document.getElementById(id);
+        this.elements = {
+          app: byId('app'),
+          text: byId('text'),
+          textContainer: byId('text-container'),
+          error: byId('error'),
+          speed: byId('speed'),
+          progress: byId('progress'),
+          dictLink: byId('dict-link'),
+          source: byId('source'),
+          sourceStatus: byId('source-status'),
+          themeToggle: byId('theme-toggle'),
+          refresh: byId('refresh'),
+          modal: byId('my_dict'),
+          modalStatus: byId('modal-status'),
+          dictData: byId('dict_data'),
+          myDictOk: byId('my_dict_ok'),
+          textFile: byId('text_file'),
+          textFileBtn: byId('text_file_btn'),
+          sourceArticles: byId('source-articles'),
+          feedDialog: byId('feed_dialog'),
+          feedTitle: byId('feed-title'),
+          feedList: byId('feed-list'),
+          feedStatus: byId('feed-status'),
+          feedAll: byId('feed_all'),
+          feedOk: byId('feed_ok'),
+          layoutNotice: byId('layout-notice'),
+          codeLanguage: byId('code_language'),
+          simplify: byId('simplify_typography'),
+          explanationsUrl: byId('explanations_url'),
+          explanationsFile: byId('explanations_file'),
+          explanationsLoad: byId('explanations_load'),
+          explanationsClear: byId('explanations_clear'),
+          loadStatus: byId('load-status'),
+          explanationContent: byId('explanation-content'),
+          keyboard: byId('keyboard'),
+          keyboardToggle: byId('keyboard-toggle'),
+          kbFingers: byId('kb_fingers'),
+          kbZones: byId('kb_zones'),
+          kbHands: byId('kb_hands')
+        };
+        this.keyboard = new VirtualKeyboard(this.elements.keyboard, {
+          onWarning: (needed, current) => this.showLayoutNotice(needed, current),
+          onLayout: (layout) => this.store(STORAGE_KEYS.layout, layout)
+        });
+        this.keyboardOptions = { visible: true, fingers: true, zones: true, hands: true };
+
+        this.init();
+      }
+
+      init() {
+        const el = this.elements;
+
+        el.dictLink.addEventListener('click', () => this.showModal());
+        el.refresh.addEventListener('click', () => this.restart());
+        el.themeToggle.addEventListener('click', () => this.setTheme(this.theme === 'light' ? 'dark' : 'light'));
+        el.source.addEventListener('change', () => this.selectSource(el.source.value));
+        el.keyboardToggle.addEventListener('click', () => {
+          this.setKeyboardOptions({ visible: !this.keyboardOptions.visible });
+        });
+        // После переключения опций фокус возвращается в текст: клик по подписи отдаёт его чекбоксу
+        el.kbFingers.addEventListener('change', () => {
+          this.setKeyboardOptions({ fingers: el.kbFingers.checked });
+          el.text.focus();
+        });
+        el.kbZones.addEventListener('change', () => {
+          this.setKeyboardOptions({ zones: el.kbZones.checked });
+          el.text.focus();
+        });
+        el.kbHands.addEventListener('change', () => {
+          this.setKeyboardOptions({ hands: el.kbHands.checked });
+          el.text.focus();
+        });
+        // Кнопки и переключатели не забирают фокус у поля набора
+        [el.dictLink, el.refresh, el.keyboardToggle, el.themeToggle, el.kbFingers, el.kbZones, el.kbHands].forEach(control => {
+          const target = control.closest('label') || control;
+          target.addEventListener('mousedown', (e) => e.preventDefault());
+        });
+
+        el.myDictOk.addEventListener('click', () => this.applyCustomText());
+        el.dictData.addEventListener('input', () => {
+          if (el.modalStatus.classList.contains('error')) this.setStatus(el.modalStatus, MODAL_HINT);
+        });
+        el.textFileBtn.addEventListener('click', () => el.textFile.click());
+        el.textFile.addEventListener('change', () => this.loadTextFile());
+
+        for (const dialog of [el.modal, el.feedDialog]) {
+          dialog.querySelectorAll('.close').forEach(btn => {
+            btn.addEventListener('click', () => dialog.close());
+          });
+          dialog.addEventListener('close', () => {
+            this.syncSourceSelect();
+            el.text.focus();
+          });
+          // Клик по подложке закрывает окно (если и нажатие, и отпускание были на подложке)
+          dialog.addEventListener('mousedown', (e) => {
+            this.backdropPressed = e.target === dialog;
+          });
+          dialog.addEventListener('click', (e) => {
+            if (this.backdropPressed && e.target === dialog) dialog.close();
+            this.backdropPressed = false;
+          });
+        }
+
+        el.sourceArticles.addEventListener('click', () => {
+          const channel = this.currentChannel();
+          if (channel) this.openChannel(channel);
+        });
+        // Закрытие окна статей отменяет догрузку текстов
+        el.feedDialog.addEventListener('close', () => this.channelRequest++);
+        el.feedOk.addEventListener('click', () => this.applyChannelSelection());
+        el.feedAll.addEventListener('click', () => {
+          const usable = this.channelItems.filter(item => item.state === 'full');
+          const select = !usable.every(item => item.selected);
+          usable.forEach(item => {
+            item.selected = select;
+            item.row.box.checked = select;
+          });
+          this.updateFeedSelection();
+        });
+
+        el.explanationsFile.addEventListener('change', () => this.loadExplanationsFromFile());
+        el.explanationsLoad.addEventListener('click', () => this.loadExplanationsFromUrl());
+        el.explanationsUrl.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' && !e.ctrlKey && !e.metaKey) {
+            e.preventDefault();
+            this.loadExplanationsFromUrl();
+          }
+        });
+        el.explanationsClear.addEventListener('click', () => this.setExplanations(null));
+
+        document.addEventListener('keydown', (e) => this.routeKey(e));
+        document.addEventListener('keyup', (e) => this.trackKey(e, false));
+        window.addEventListener('blur', () => this.keyboard.releaseAll());
+        el.text.addEventListener('focus', () => this.setPaused(false));
+        el.text.addEventListener('blur', () => this.setPaused(true));
+
+        if (!window.hljs) {
+          el.codeLanguage.disabled = true;
+          el.codeLanguage.title = 'Библиотека подсветки не загрузилась';
+        }
+
+        this.setTheme(this.load(STORAGE_KEYS.theme) === 'light' ? 'light' : 'dark', false);
+        this.initSourceSelect();
+        this.setKeyboardOptions(this.load(STORAGE_KEYS.keyboard) || {}, false);
+        // Раскладка, в которой набирали в прошлый раз, — лучшее предположение до первой буквы
+        const layout = this.load(STORAGE_KEYS.layout);
+        if (layout) this.keyboard.setDetected(layout);
+        this.restoreState();
+        el.text.focus();
+        this.setPaused(document.activeElement !== el.text);
+        metrics.attach(() => ({ theme: this.theme, source: this.settings.source, layout: this.keyboard.detected }));
+      }
+
+      setKeyboardOptions(changes, persist = true) {
+        const el = this.elements;
+        const options = this.keyboardOptions;
+        for (const name of Object.keys(options)) {
+          if (typeof changes[name] === 'boolean') options[name] = changes[name];
+        }
+
+        el.app.classList.toggle('keyboard-off', !options.visible);
+        el.keyboardToggle.setAttribute('aria-pressed', String(options.visible));
+        el.kbFingers.checked = options.fingers;
+        el.kbZones.checked = options.zones;
+        el.kbHands.checked = options.hands;
+        this.keyboard.setOptions(options);
+        if (persist) {
+          this.store(STORAGE_KEYS.keyboard, options);
+          metrics.event('keyboard', { ...options });
+        }
+      }
+
+      // ---------- Окно «Свой текст» ----------
+
+      showModal() {
+        this.setStatus(this.elements.modalStatus, MODAL_HINT);
+        this.elements.modal.showModal();
+        this.elements.dictData.focus();
+      }
+
+      hideModal() {
+        this.elements.modal.close();
+      }
+
+      // Файл с диска: работает и когда страница открыта с диска (file://)
+      async loadTextFile() {
+        const el = this.elements;
+        const file = el.textFile.files && el.textFile.files[0];
+        if (!file) return;
+        try {
+          el.dictData.value = await file.text();
+          const language = FILE_LANGUAGES[file.name.split('.').pop().toLowerCase()] || '';
+          el.codeLanguage.value = language;
+          this.setStatus(el.modalStatus, `Открыт ${file.name} — нажмите «Начать»`, 'success');
+        } catch (err) {
+          this.setStatus(el.modalStatus, `Не удалось прочитать файл: ${err.message}`, 'error');
+        }
+        el.textFile.value = '';
+      }
+
+      applyCustomText() {
+        const el = this.elements;
+        const settings = {
+          text: el.dictData.value,
+          language: el.codeLanguage.value,
+          simplify: el.simplify.checked,
+          source: 'custom'
+        };
+        const lines = this.parseText(settings.text, settings.simplify, settings.language);
+        if (!lines.length) {
+          this.setStatus(el.modalStatus, 'Введите текст для тренировки', 'error');
+          el.dictData.focus();
+          return;
+        }
+
+        this.settings = settings;
+        this.store(STORAGE_KEYS.settings, settings);
+        this.setText(lines, settings.language, 0);
+        this.store(STORAGE_KEYS.position, 0);
+        this.syncSourceSelect();
+        this.hideModal();
+        // Сам текст не отправляется — только его объём и язык подсветки
+        metrics.event('text', { source: 'custom', chars: settings.text.length, lines: lines.length, language: settings.language });
+      }
+
+      // language — язык подсветки кода: в коде HTML-мнемоники (&amp; в HTML) — часть текста
+      parseText(text, simplify, language = '') {
+        // Мнемоники раскодируются первыми: &nbsp; превращается в неразрывный пробел, который ниже станет обычным
+        let result = (simplify && !language ? this.decodeEntities(text) : text)
+          .replace(/\r\n?/g, '\n')
+          // Буквы с надстрочными знаками — одним символом (й, ё), а отдельные знаки
+          // вроде ударения («само́й») набрать нельзя — удаляем
+          .normalize('NFC')
+          .replace(/[̀-ͯ]/g, '')
+          // Невидимые и непечатаемые символы (включая эмодзи) набрать нельзя — удаляем
+          .replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F­​-‍⁠️﻿]|[\u{10000}-\u{10FFFF}]/gu, '')
+          // Табуляцию и особые пробелы (в т.ч. неразрывный) заменяем обычным пробелом
+          .replace(/[\t  -   　]/g, ' ');
+
+        if (simplify) {
+          result = result
+            .replace(/[«»„“”]/g, '"')
+            .replace(/[‘’‚]/g, "'")
+            .replace(/[‐‑‒–—―−]/g, '-')
+            .replace(/…/g, '...')
+            .replace(CHAR_REPLACEMENT_RE, ch => CHAR_REPLACEMENTS[ch])
+            // Латинские буквы с диакритикой — без неё: é → e, ö → o
+            .replace(/[À-ɏ]/g, ch => ch.normalize('NFD').replace(/[̀-ͯ]/g, ''))
+            // Остальное, чего нет ни в одной раскладке (значки ✓ ⚠, греческие буквы, °), набрать
+            // нельзя — на таком символе набор бы застрял
+            .replace(/[^\n]/g, ch => (TYPABLE.has(ch) ? ch : ''));
+        }
+
+        return result
+          .split('\n')
+          .map(line => line.replace(/ {2,}/g, ' ').trim())
+          .filter(line => line.length > 0);
+      }
+
+      // ---------- Пояснения ----------
+
+      async loadExplanationsFromFile() {
+        const input = this.elements.explanationsFile;
+        const file = input.files && input.files[0];
+        if (!file) return;
+
+        try {
+          const data = this.parseExplanations(await file.text());
+          this.setExplanations({ source: file.name, data });
+        } catch (err) {
+          this.setStatus(this.elements.loadStatus, `Ошибка: ${err.message}`, 'error');
+        }
+        // Сбрасываем выбор, чтобы тот же файл можно было загрузить повторно
+        input.value = '';
+      }
+
+      async loadExplanationsFromUrl() {
+        const url = this.elements.explanationsUrl.value.trim();
+        if (!url) {
+          this.setStatus(this.elements.loadStatus, 'Укажите URL словаря', 'error');
+          this.elements.explanationsUrl.focus();
+          return;
+        }
+
+        this.setStatus(this.elements.loadStatus, 'Загрузка...');
+        try {
+          const res = await fetch(url);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const data = this.parseExplanations(await res.text());
+          this.setExplanations({ source: url.split(/[?#]/)[0].split('/').pop() || url, data });
+        } catch (err) {
+          this.setStatus(this.elements.loadStatus, `Ошибка: ${err.message}`, 'error');
+        }
+      }
+
+      parseExplanations(json) {
+        try {
+          return this.normalizeExplanations(JSON.parse(json));
+        } catch (err) {
+          throw new Error(err.message.slice(0, 160));
+        }
+      }
+
+      normalizeExplanations(data) {
+        if (!data || typeof data !== 'object' || Array.isArray(data)) {
+          throw new Error('ожидается объект вида {"слово": "пояснение"}');
+        }
+        const entries = Object.entries(data)
+          .filter(([key, value]) => key.trim() && (typeof value === 'string' || typeof value === 'number'))
+          .map(([key, value]) => [key, String(value)]);
+        if (!entries.length) throw new Error('в словаре нет пояснений');
+        return Object.fromEntries(entries);
+      }
+
+      setExplanations(explanations, persist = true) {
+        const el = this.elements;
+        this.explanationIndex = explanations ? this.buildExplanationIndex(explanations.data) : null;
+        el.app.classList.toggle('explanations-off', !explanations);
+        el.explanationsClear.hidden = !explanations;
+
+        if (explanations) {
+          this.setStatus(el.loadStatus, `${explanations.source} — пояснений: ${this.explanationIndex.map.size}`, 'success');
+        } else {
+          this.setStatus(el.loadStatus, 'Словарь не загружен');
+        }
+
+        if (persist) this.store(STORAGE_KEYS.explanations, explanations);
+        if (persist && explanations) metrics.event('explanations', { count: this.explanationIndex.map.size });
+        this.renderExplanations();
+      }
+
+      buildExplanationIndex(data) {
+        // Map вместо обычного объекта: ключи вроде constructor/toString не путаются с методами Object
+        const map = new Map(Object.entries(data));
+        const wordChar = /^[\p{L}\p{N}_$]$/u;
+        const patterns = [...map.keys()]
+          // Длинные ключи проверяются первыми: «React.FC» приоритетнее «React»
+          .sort((a, b) => b.length - a.length)
+          .map(key => {
+            let pattern = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            // Ключ-слово не должен совпадать с частью другого идентификатора
+            if (wordChar.test(key[0])) pattern = `(?<![\\p{L}\\p{N}_$])${pattern}`;
+            if (wordChar.test(key[key.length - 1])) pattern = `${pattern}(?![\\p{L}\\p{N}_$])`;
+            return pattern;
+          });
+        return { map, regex: new RegExp(patterns.join('|'), 'gu') };
+      }
+
+      renderExplanations() {
+        const content = this.elements.explanationContent;
+        content.textContent = '';
+        this.lineExplanations = [];
+        this.activeExplanation = null;
+        if (!this.explanationIndex || !this.currentText) return;
+
+        const { map, regex } = this.explanationIndex;
+        const classes = this.lines[this.lineIndex].classes;
+        const found = new Map();
+        for (const match of this.currentText.matchAll(regex)) {
+          const key = match[0];
+          // Знаки вроде «/», «*», «-» внутри комментариев и строк — не операции, пояснять их не нужно
+          const scope = classes ? classes[match.index] : '';
+          if (scope && !/^[\p{L}\p{N}_$]/u.test(key) &&
+            (scope.includes('hljs-comment') || (scope.includes('hljs-string') && !scope.includes('hljs-subst')))) {
+            continue;
+          }
+          if (!found.has(key)) found.set(key, []);
+          found.get(key).push([match.index, match.index + key.length]);
+        }
+
+        if (!found.size) {
+          const empty = document.createElement('div');
+          empty.className = 'no-explanations';
+          empty.textContent = 'Для этой строки пояснений нет';
+          content.appendChild(empty);
+          return;
+        }
+
+        for (const [key, ranges] of found) {
+          const item = document.createElement('div');
+          item.className = 'word-item';
+          const title = document.createElement('div');
+          title.className = 'word-title';
+          title.textContent = key;
+          const description = document.createElement('div');
+          description.className = 'word-description';
+          description.textContent = map.get(key);
+          item.append(title, description);
+          content.appendChild(item);
+          this.lineExplanations.push({ ranges, el: item });
+        }
+        this.updateActiveExplanation();
+      }
+
+      // Выделяем пояснение к слову, которое сейчас набирается
+      updateActiveExplanation() {
+        const active = this.lineExplanations.find(({ ranges }) =>
+          ranges.some(([start, end]) => this.pos >= start && this.pos < end)
+        );
+        const item = active ? active.el : null;
+        if (item === this.activeExplanation) return;
+
+        if (this.activeExplanation) this.activeExplanation.classList.remove('active');
+        this.activeExplanation = item;
+        if (item) {
+          item.classList.add('active');
+          item.scrollIntoView({ block: 'nearest' });
+        }
+      }
+
+      // ---------- Текст и строки ----------
+
+      setText(lines, language, startIndex) {
+        this.lines = this.prepareLines(lines, language);
+        this.keyboard.resetLayout(lines);
+        this.lineIndex = startIndex >= 0 && startIndex < this.lines.length ? startIndex : 0;
+        this.resetStats();
+        this.renderLines();
+        this.updateDisplay();
+      }
+
+      prepareLines(lines, language) {
+        const plain = lines.map(text => ({ text, classes: null }));
+        if (!language || !window.hljs || !hljs.getLanguage(language)) return plain;
+
+        try {
+          // Подсвечиваем весь текст сразу: многострочные комментарии и строки распознаются верно,
+          // а highlight.js вызывается один раз, а не для каждой новой строки
+          const template = document.createElement('template');
+          template.innerHTML = hljs.highlight(lines.join('\n'), { language, ignoreIllegals: true }).value;
+
+          const prepared = lines.map(text => ({ text, classes: [] }));
+          let row = 0;
+          const walk = (node, classes) => {
+            for (const child of node.childNodes) {
+              if (child.nodeType === Node.TEXT_NODE) {
+                const data = child.data;
+                for (let i = 0; i < data.length; i++) {
+                  if (data[i] === '\n') row++;
+                  else prepared[row].classes.push(classes);
+                }
+              } else if (child.nodeType === Node.ELEMENT_NODE) {
+                walk(child, child.className ? `${classes} ${child.className}`.trim() : classes);
+              }
+            }
+          };
+          walk(template.content, '');
+
+          // Разметка должна совпасть с исходным текстом символ в символ
+          if (prepared.some(line => line.classes.length !== line.text.length)) return plain;
+          return prepared;
+        } catch (e) {
+          return plain;
+        }
+      }
+
+      renderLines() {
+        const text = this.elements.text;
+        text.textContent = '';
+        for (let i = 0; i < VISIBLE_LINES; i++) {
+          text.appendChild(this.createLine((this.lineIndex + i) % this.lines.length));
+        }
+        this.activateLine();
+      }
+
+      shiftLines() {
+        const text = this.elements.text;
+        text.firstElementChild.remove();
+        text.appendChild(this.createLine((this.lineIndex + VISIBLE_LINES - 1) % this.lines.length));
+        this.activateLine();
+      }
+
+      createLine(index) {
+        const { text, classes } = this.lines[index];
+        const div = document.createElement('div');
+        div.className = 'line';
+
+        let word = null;
+        for (let i = 0; i < text.length; i++) {
+          const span = document.createElement('span');
+          span.className = classes && classes[i] ? `char ${classes[i]}` : 'char';
+          span.textContent = text[i];
+
+          if (!word) {
+            word = document.createElement('span');
+            word.className = 'word';
+            div.appendChild(word);
+          }
+          word.appendChild(span);
+          // Пробел завершает слово: строка переносится после пробела и не начинается с него
+          if (text[i] === ' ') word = null;
+        }
+
+        return div;
+      }
+
+      activateLine() {
+        const line = this.elements.text.firstElementChild;
+        this.currentText = this.lines[this.lineIndex].text;
+        this.chars = Array.from(line.querySelectorAll('.char'));
+        this.pos = 0;
+        this.hasError = false;
+        this.cursorEl = null;
+        this.elements.text.scrollTop = 0;
+        this.renderExplanations();
+        this.updateCursor();
+      }
+
+      // ---------- Ввод ----------
+
+      routeKey(e) {
+        const el = this.elements;
+        this.trackKey(e, true);
+
+        const dialog = document.querySelector('dialog[open]');
+        if (dialog) {
+          if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) {
+            e.preventDefault();
+            if (dialog === el.modal) this.applyCustomText();
+            else this.applyChannelSelection();
+          }
+          return;
+        }
+
+        if (e.target !== el.text) {
+          // Ввод в элементах управления не перехватываем. Исключение — выбор источника: буквы
+          // в нём листали бы список и загружали ленты, поэтому они идут в набор
+          const control = e.target.closest && e.target.closest('input, textarea, select, button, a[href]');
+          if (control && !(control === el.source && e.key.length === 1)) return;
+          // Фокус потерян (клик мимо, переключение окна) — возвращаем его и продолжаем набор
+          el.text.focus();
+        }
+
+        this.handleKeyPress(e);
+      }
+
+      // Для экранной клавиатуры: Shift, CapsLock, нажатые клавиши и раскладка по набранным символам
+      trackKey(e, down) {
+        // Регистр меняет только Shift без Alt/Ctrl/Win: Alt+Shift — это переключение раскладки
+        const shift = e.shiftKey && !e.altKey && !e.ctrlKey && !e.metaKey;
+        this.keyboard.setModifiers(shift, e.getModifierState('CapsLock'));
+        if (e.code) this.keyboard.press(e.code, down);
+        this.trackLayoutHotkey(e, down);
+        if (down && e.key && e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
+          this.keyboard.detectLayout(e.key);
+        }
+      }
+
+      // Сочетание переключения раскладки браузер не сообщает. Если Alt+Shift или Ctrl+Shift нажали
+      // и отпустили без других клавиш — раскладка сменилась; Win+Пробел переключает сразу
+      trackLayoutHotkey(e, down) {
+        const modifier = ['Shift', 'Alt', 'Control', 'Meta'].includes(e.key);
+        if (down) {
+          if (e.metaKey && e.code === 'Space') {
+            this.keyboard.toggleLayout();
+          } else if (!modifier) {
+            this.layoutHotkey = false;   // в сочетании была обычная клавиша — это не переключение
+          } else if ((e.altKey || e.ctrlKey) && e.shiftKey && !(e.altKey && e.ctrlKey) && !e.metaKey) {
+            this.layoutHotkey = true;
+          }
+        } else if (this.layoutHotkey && modifier) {
+          this.layoutHotkey = false;
+          this.keyboard.toggleLayout();
+        }
+      }
+
+      showLayoutNotice(needed, current) {
+        const notice = this.elements.layoutNotice;
+        notice.hidden = !needed;
+        if (needed) {
+          notice.textContent = `Сейчас раскладка ${LAYOUTS[current].name}, а для следующего символа нужна ${LAYOUTS[needed].name}`;
+        }
+      }
+
+      handleKeyPress(e) {
+        if (e.isComposing) return;
+
+        // В Windows AltGr приходит как Ctrl+Alt — такие символы вводим как обычные
+        const altGr = e.getModifierState('AltGraph') || (e.ctrlKey && e.altKey);
+        // Системные сочетания (Ctrl+R, масштаб, поиск и т.п.) оставляем браузеру в любой раскладке
+        if ((e.ctrlKey || e.altKey || e.metaKey) && !altGr) return;
+
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          this.restart();
+          return;
+        }
+
+        if (e.key === 'Backspace') {
+          e.preventDefault();
+          this.stepBack();
+          return;
+        }
+
+        // Остальные служебные клавиши (F5, стрелки, Tab...) не трогаем
+        if (e.key.length !== 1) return;
+
+        e.preventDefault();
+        const correct = this.typeChar(e.key);
+        this.keyboard.flash(e.code, correct);
+      }
+
+      // Возвращает true, если символ набран верно
+      typeChar(key) {
+        if (this.pos >= this.currentText.length) return false;
+
+        const now = performance.now();
+        const gap = this.lastKeyAt !== null ? Math.min(now - this.lastKeyAt, IDLE_LIMIT_MS) : 0;
+        this.stats.time += gap;
+        this.lastKeyAt = now;
+
+        const correct = key === this.currentText[this.pos];
+        metrics.keystroke(correct, gap);
+        if (correct) {
+          this.hasError = false;
+          this.chars[this.pos].classList.add('checked');
+          this.pos++;
+
+          if (this.pos >= this.currentText.length) {
+            this.completeLine();
+            return true;
+          }
+        } else {
+          this.hasError = true;
+          this.stats.errors++;
+        }
+
+        this.updateCursor();
+        this.updateDisplay();
+        return correct;
+      }
+
+      stepBack() {
+        if (this.hasError) {
+          // Сначала снимаем отметку ошибки, курсор остаётся на месте
+          this.hasError = false;
+        } else if (this.pos > 0) {
+          this.pos--;
+          this.chars[this.pos].classList.remove('checked');
+        } else {
+          return;
+        }
+        this.updateCursor();
+        this.updateDisplay();
+      }
+
+      updateCursor() {
+        if (this.cursorEl) this.cursorEl.classList.remove('current', 'error');
+        this.cursorEl = this.chars[this.pos] || null;
+        if (this.cursorEl) {
+          this.cursorEl.classList.add('current');
+          this.cursorEl.classList.toggle('error', this.hasError);
+        }
+        this.updateActiveExplanation();
+        this.keyboard.setTarget(this.currentText, this.pos);
+      }
+
+      completeLine() {
+        this.stats.chars += this.currentText.length;
+        metrics.line();
+        this.lineIndex = (this.lineIndex + 1) % this.lines.length;
+        this.store(STORAGE_KEYS.position, this.lineIndex);
+        this.shiftLines();
+        this.updateDisplay();
+      }
+
+      restart() {
+        this.lineIndex = 0;
+        this.store(STORAGE_KEYS.position, 0);
+        this.resetStats();
+        this.renderLines();
+        this.updateDisplay();
+        metrics.event('restart');
+      }
+
+      setPaused(paused) {
+        this.elements.textContainer.classList.toggle('paused', paused);
+        // Время, пока тренажёр не в фокусе, в скорость не идёт
+        if (paused) this.lastKeyAt = null;
+      }
+
+      // ---------- Статистика ----------
+
+      resetStats() {
+        this.stats = { time: 0, chars: 0, errors: 0 };
+        this.lastKeyAt = null;
+      }
+
+      updateDisplay() {
+        const el = this.elements;
+        el.progress.textContent = `${this.lineIndex + 1} / ${this.lines.length}`;
+
+        const chars = this.stats.chars + this.pos;
+        const minutes = this.stats.time / 60000;
+        if (!chars || !minutes) {
+          el.speed.textContent = '--';
+          el.error.textContent = '--';
+          return;
+        }
+
+        const cpm = chars / minutes;
+        el.speed.textContent = `${Math.round(cpm)} зн/мин · ${Math.round(cpm / 5)} wpm`;
+        el.error.textContent = `${(this.stats.errors / chars * 100).toFixed(2)}%`;
+      }
+
+      // ---------- Сохранение состояния ----------
+
+      restoreState() {
+        const el = this.elements;
+
+        const settings = this.load(STORAGE_KEYS.settings);
+        if (settings && typeof settings.text === 'string') {
+          const languageExists = [...el.codeLanguage.options].some(o => o.value === settings.language);
+          this.settings = {
+            text: settings.text,
+            language: languageExists ? settings.language : '',
+            simplify: settings.simplify !== false,
+            source: typeof settings.source === 'string' ? settings.source : 'custom'
+          };
+        }
+        el.dictData.value = this.settings.text;
+        el.codeLanguage.value = this.settings.language;
+        el.simplify.checked = this.settings.simplify;
+        this.syncSourceSelect();
+
+        const explanations = this.load(STORAGE_KEYS.explanations);
+        let restored = null;
+        if (explanations && explanations.data) {
+          try {
+            restored = { source: String(explanations.source || 'словарь'), data: this.normalizeExplanations(explanations.data) };
+          } catch (e) {
+            restored = null;
+          }
+        }
+        this.setExplanations(restored, false);
+
+        const lines = this.parseText(this.settings.text, this.settings.simplify, this.settings.language);
+        const position = Number(this.load(STORAGE_KEYS.position)) || 0;
+        if (lines.length) {
+          this.setText(lines, this.settings.language, position);
+        } else {
+          this.setText(this.parseText(DEFAULT_TEXT, false), '', 0);
+        }
+      }
+
+      // ---------- Тема ----------
+
+      setTheme(theme, persist = true) {
+        const light = theme === 'light';
+        this.theme = light ? 'light' : 'dark';
+        document.documentElement.dataset.theme = this.theme;
+        document.getElementById('hljs-dark').disabled = light;
+        document.getElementById('hljs-light').disabled = !light;
+
+        const btn = this.elements.themeToggle;
+        btn.textContent = light ? '☾' : '☀';
+        btn.title = light ? 'Тёмная тема' : 'Светлая тема';
+        btn.setAttribute('aria-label', btn.title);
+        if (persist) {
+          this.store(STORAGE_KEYS.theme, this.theme);
+          metrics.event('theme', { theme: this.theme });
+        }
+      }
+
+      // ---------- Источник текста: свой текст или статьи ----------
+
+      initSourceSelect() {
+        const select = this.elements.source;
+        select.append(new Option('Свой текст…', 'custom'));
+        for (const [group, label] of Object.entries(CHANNEL_GROUPS)) {
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = label;
+          CHANNELS.filter(channel => channel.group === group)
+            .forEach(channel => optgroup.appendChild(new Option(channel.name, `rss:${channel.id}`)));
+          select.appendChild(optgroup);
+        }
+      }
+
+      currentChannel() {
+        if (!this.settings.text) return null;
+        return CHANNELS.find(channel => `rss:${channel.id}` === this.settings.source) || null;
+      }
+
+      syncSourceSelect() {
+        const el = this.elements;
+        let value = this.settings.source || 'custom';
+        // Текст по умолчанию и источники прежней версии, которых нет в списке, считаем своим текстом
+        if (![...el.source.options].some(option => option.value === value)) value = 'custom';
+        el.source.value = value;
+        el.sourceArticles.hidden = !this.currentChannel();
+      }
+
+      setSourceStatus(message, type = '') {
+        clearTimeout(this.sourceStatusTimer);
+        this.setStatus(this.elements.sourceStatus, message, type);
+        this.elements.sourceStatus.title = message;
+        if (type === 'success') {
+          this.sourceStatusTimer = setTimeout(() => this.setSourceStatus(''), 5000);
+        }
+      }
+
+      selectSource(value) {
+        // Свой текст и статьи применяются в окне, до этого в списке остаётся текущий источник
+        this.syncSourceSelect();
+        if (value === 'custom') {
+          this.showModal();
+          return;
+        }
+        const channel = CHANNELS.find(c => `rss:${c.id}` === value);
+        if (channel) this.openChannel(channel);
+      }
+
+      // Окно выбора статей: у каждой — дата и длина полного текста; анонсы выбрать нельзя
+      async openChannel(channel) {
+        const el = this.elements;
+        const request = ++this.channelRequest;
+        const onRetry = (seconds) => {
+          if (request === this.channelRequest) this.setStatus(el.feedStatus, `Сервис RSS занят, повтор через ${seconds} с…`);
+        };
+        this.channel = channel;
+        this.channelItems = [];
+        el.feedTitle.textContent = channel.name;
+        el.feedList.textContent = '';
+        this.updateFeedSelection();
+        this.setStatus(el.feedStatus, 'Загрузка списка статей…');
+        el.feedDialog.showModal();
+
+        try {
+          const items = await this.fetchChannelItems(channel, onRetry);
+          if (request !== this.channelRequest) return;
+          if (!items.length) throw new Error('в ленте нет записей');
+          this.channelItems = items;
+          items.forEach(item => el.feedList.appendChild(this.renderFeedItem(item)));
+          this.updateFeedSelection();
+
+          // Полный текст, которого нет в самой ленте, загружается для каждой статьи
+          await Promise.all(items.filter(item => item.state === 'loading').map(async (item) => {
+            try {
+              this.setArticleText(item, await this.fetchFullText(channel, item), true);
+            } catch (err) {
+              item.state = 'error';
+            }
+            if (request === this.channelRequest) this.updateFeedItem(item);
+          }));
+        } catch (err) {
+          if (request === this.channelRequest) this.setStatus(el.feedStatus, `Не удалось загрузить: ${err.message}`, 'error');
+          metrics.event('feed_error', { channel: channel.id, message: String(err.message).slice(0, 200) });
+        }
+      }
+
+      async fetchChannelItems(channel, onRetry) {
+        if (channel.wiki) {
+          const data = await this.fetchJson(`${this.wikiApi(channel.wiki)}&generator=random&grnnamespace=0&grnlimit=${CHANNEL_ITEMS}&prop=info`);
+          return Object.values(data.query.pages).map(page => ({ title: page.title, date: null, link: '', state: 'loading' }));
+        }
+        if (channel.habr) {
+          const data = await this.fetchJson(`https://habr.com/kek/v2/articles/?${channel.habr}&fl=ru&hl=ru&page=1`);
+          return (data.publicationIds || []).slice(0, CHANNEL_ITEMS).map(id => {
+            const ref = data.publicationRefs[id];
+            return { id, title: this.cleanTitle(ref.titleHtml), date: ref.timePublished, link: '', state: 'loading' };
+          });
+        }
+        if (channel.wp) {
+          // WordPress отдаёт статьи целиком, с разрешением CORS
+          const posts = await this.fetchJson(`${channel.wp}/wp-json/wp/v2/posts?per_page=${CHANNEL_ITEMS}&_fields=title,link,date,content`);
+          return posts.map(post => {
+            const item = { title: this.cleanTitle(post.title.rendered), date: post.date, link: post.link };
+            this.setArticleText(item, this.htmlToText(post.content.rendered), true);
+            return item;
+          });
+        }
+        const entries = await this.fetchFeed(channel, onRetry);
+        return entries.slice(0, CHANNEL_ITEMS).map(entry => {
+          const item = { title: this.cleanTitle(entry.title), date: entry.date, link: entry.link };
+          this.setArticleText(item, this.htmlToText(entry.html), false);
+          return item;
+        });
+      }
+
+      cleanTitle(html) {
+        return this.htmlToText(html).replace(/\s+/g, ' ').trim();
+      }
+
+      async fetchFullText(channel, item) {
+        if (channel.wiki) {
+          const data = await this.fetchJson(`${this.wikiApi(channel.wiki)}&prop=extracts&explaintext=1&exsectionformat=plain&titles=${encodeURIComponent(item.title)}`);
+          const extract = Object.values(data.query.pages)[0].extract || '';
+          const lines = extract.split('\n');
+          const end = lines.findIndex(line => WIKI_END_SECTIONS.has(line.trim()));
+          return (end >= 0 ? lines.slice(0, end) : lines).join('\n');
+        }
+        if (channel.habr) {
+          const data = await this.fetchJson(`https://habr.com/kek/v2/articles/${item.id}/?fl=ru&hl=ru`);
+          return this.htmlToText(data.textHtml || '');
+        }
+        throw new Error('нет источника полного текста');
+      }
+
+      wikiApi(lang) {
+        return `https://${lang}.wikipedia.org/w/api.php?action=query&format=json&origin=*`;
+      }
+
+      async fetchJson(url) {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        return res.json();
+      }
+
+      // Текст статьи без служебных строк. Анонс (обрезанный текст) помечается и в тренажёр не идёт
+      setArticleText(item, text, full) {
+        const raw = text.trim();
+        item.text = raw.split('\n')
+          .map(line => line.replace(/\s+/g, ' ').trim())
+          .filter(line => line && !ARTICLE_NOISE.test(line))
+          .join('\n');
+        if (!item.text) item.state = 'error';
+        else if (!full && (raw.length < PREVIEW_MIN_LENGTH || PREVIEW_TAIL.test(raw))) item.state = 'preview';
+        else item.state = 'full';
+      }
+
+      renderFeedItem(item) {
+        const row = document.createElement('label');
+        row.className = 'feed-item';
+        const box = document.createElement('input');
+        box.type = 'checkbox';
+        box.addEventListener('change', () => {
+          item.selected = box.checked;
+          this.updateFeedSelection();
+        });
+        const title = document.createElement('span');
+        title.className = 'feed-item-title';
+        title.textContent = item.title;
+        const meta = document.createElement('span');
+        meta.className = 'feed-item-meta';
+        row.append(box, title, meta);
+        item.row = { row, box, meta };
+        this.updateFeedItem(item);
+        return row;
+      }
+
+      updateFeedItem(item) {
+        const { row, box, meta } = item.row;
+        const date = item.date ? this.formatDate(item.date) : '';
+        const length = item.text ? `${this.formatCount(item.text.length)} знаков` : '';
+        const states = {
+          loading: 'загрузка полного текста…',
+          full: length,
+          preview: `анонс, ${length} — полного текста нет`,
+          error: 'текст недоступен'
+        };
+        meta.textContent = [date, states[item.state]].filter(Boolean).join(' · ');
+        const usable = item.state === 'full';
+        box.disabled = !usable;
+        if (!usable) {
+          box.checked = false;
+          item.selected = false;
+        }
+        row.classList.toggle('disabled', !usable);
+        this.updateFeedSelection();
+      }
+
+      updateFeedSelection() {
+        const el = this.elements;
+        const selected = this.channelItems.filter(item => item.selected);
+        el.feedOk.disabled = !selected.length;
+        if (!this.channelItems.length) return;
+        const chars = selected.reduce((sum, item) => sum + item.text.length, 0);
+        this.setStatus(el.feedStatus, selected.length
+          ? `Выбрано: ${selected.length} · ${this.formatCount(chars)} знаков`
+          : 'Отметьте статьи для тренировки');
+      }
+
+      applyChannelSelection() {
+        const el = this.elements;
+        const selected = this.channelItems.filter(item => item.selected);
+        if (!selected.length || !this.channel) return;
+        const text = selected.flatMap(item => this.articleToLines(item)).slice(0, CHANNEL_MAX_LINES).join('\n');
+        const lines = this.parseText(text, true);
+        if (!lines.length) return;
+
+        this.settings = { text, language: '', simplify: true, source: `rss:${this.channel.id}` };
+        this.store(STORAGE_KEYS.settings, this.settings);
+        this.store(STORAGE_KEYS.position, 0);
+        el.dictData.value = text;
+        el.codeLanguage.value = '';
+        el.simplify.checked = true;
+        this.setText(lines, '', 0);
+        this.setSourceStatus(`${this.channel.name}: статей ${selected.length}`, 'success');
+        metrics.event('text', { source: this.settings.source, articles: selected.length, chars: text.length });
+        el.feedDialog.close();
+      }
+
+      // Заголовок — отдельной строкой, текст — по предложениям: так строки удобны для набора
+      articleToLines(item) {
+        const lines = [item.title];
+        for (const paragraph of item.text.split('\n')) {
+          for (const sentence of paragraph.split(/(?<=[.!?…])\s+(?=[«"(A-ZА-ЯЁ0-9])/u)) {
+            if (sentence && sentence !== item.title) lines.push(sentence);
+          }
+        }
+        return lines;
+      }
+
+      formatCount(n) {
+        return n.toLocaleString('ru-RU');
+      }
+
+      formatDate(value) {
+        const date = new Date(String(value).replace(/^(\d{4}-\d\d-\d\d) /, '$1T'));
+        return isNaN(date) ? '' : date.toLocaleDateString('ru-RU', { day: 'numeric', month: 'short' });
+      }
+
+      // Записи ленты: [{ title, html, link, date }]
+      async fetchFeed(channel, onRetry = () => { }) {
+        if (channel.direct) {
+          try {
+            const res = await fetch(channel.rss);
+            if (res.ok) return this.parseFeedXml(await res.text());
+          } catch (e) {
+            // Лента не отвечает напрямую — пробуем через rss2json
+          }
+        }
+        for (let attempt = 0; ; attempt++) {
+          const res = await fetch(RSS_PROXY + encodeURIComponent(channel.rss));
+          const data = await res.json().catch(() => ({}));
+          if (data.status === 'ok') {
+            return data.items.map(item => ({
+              title: item.title || '',
+              html: this.longest(item.description, item.content),
+              link: item.link || '',
+              date: item.pubDate || null
+            }));
+          }
+          // rss2json временно ограничивает загрузку новых лент (429) — ждём и пробуем снова
+          const delay = RSS_RETRY_DELAYS[attempt];
+          if (res.status !== 429) throw new Error(data.message || `HTTP ${res.status}`);
+          if (delay === undefined) throw new Error('сервис rss2json временно ограничил загрузку лент, попробуйте через минуту');
+          onRetry(delay);
+          await new Promise(resolve => setTimeout(resolve, delay * 1000));
+        }
+      }
+
+      parseFeedXml(xml) {
+        const doc = new DOMParser().parseFromString(xml, 'text/xml');
+        if (doc.querySelector('parsererror')) throw new Error('лента повреждена');
+        return [...doc.querySelectorAll('item, entry')].map(item => {
+          const node = (name) => item.getElementsByTagName(name)[0];
+          const field = (name) => (node(name) || {}).textContent;
+          const link = node('link');
+          return {
+            title: field('title') || '',
+            html: this.longest(field('description'), field('summary'), field('content:encoded'), field('content')),
+            link: link ? (link.getAttribute('href') || link.textContent) : '',
+            date: field('pubDate') || field('published') || field('updated') || null
+          };
+        });
+      }
+
+      // В лентах краткое описание и полный текст лежат в разных полях — берём более длинное
+      longest(...values) {
+        return values.reduce((best, value) => (value && value.length > best.length ? value : best), '');
+      }
+
+      // HTML → текст с переносами между абзацами. DOMParser не исполняет скрипты
+      // и не загружает картинки, так что разбор безопасен
+      htmlToText(html) {
+        const marked = html.replace(/<(br|\/p|\/div|\/li|\/h[1-6]|\/blockquote|\/tr|\/pre)\b[^>]*>/gi, '$&\n');
+        const doc = new DOMParser().parseFromString(marked, 'text/html');
+        doc.querySelectorAll('script, style, figure, img, iframe, table, svg').forEach(node => node.remove());
+        return this.decodeEntities(doc.body.textContent || '');
+      }
+
+      // HTML-мнемоники, оставшиеся в тексте. Некоторые ленты кодируют HTML дважды (Tengrinews:
+      // «AI &amp;amp; Digital»), и после разбора в тексте остаются «&amp;», «&nbsp;» — раскодируем
+      // ещё раз, пока они есть. Через DOMParser проходит только сама мнемоника, без окружающего текста
+      decodeEntities(text) {
+        for (let pass = 0; pass < 3 && ENTITY.test(text); pass++) {
+          text = text.replace(ENTITY_ALL, (entity) => {
+            if (!entityCache.has(entity)) {
+              entityCache.set(entity, new DOMParser().parseFromString(entity, 'text/html').body.textContent);
+            }
+            return entityCache.get(entity);
+          });
+        }
+        return text;
+      }
+
+      load(key) {
+        try {
+          return JSON.parse(localStorage.getItem(key));
+        } catch (e) {
+          return null;
+        }
+      }
+
+      store(key, value) {
+        try {
+          if (value === null) localStorage.removeItem(key);
+          else localStorage.setItem(key, JSON.stringify(value));
+        } catch (e) {
+          // Хранилище недоступно или переполнено — работаем без сохранения
+        }
+      }
+
+      setStatus(el, message, type = '') {
+        el.textContent = message;
+        el.className = type ? `status ${type}` : 'status';
+      }
+    }
+
+    // Статистика создаётся первой — чтобы записать и ошибки при запуске тренажёра
+    const metrics = new SiteMetrics();
+    new KeyboardTrainer();
+  </script>
+</body>
+
+</html>
